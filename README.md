@@ -174,16 +174,14 @@ Running - rules applied to the active firewall configuration in memory (temporar
 
 Permanent - Rules that have been saved and will load when the system starts.
 
-<p align="center"><img alt="zones" src="rhel_server/08Zones.png" height="auto" width="800"></p>
+<p align="center"><img alt="zones" src="rhel_server/08Zones.jpeg" height="auto" width="800"></p>
 
 '''console
 $ rpm -qa | grep firewalld # installed by default but can check this way
 $ sudo firewall-cmd --state # check to see if active
 $ sudo su
-# firewall-cmd --get-zones # list available zones
-		block dmz drop external home internal nm-shared public trusted work
-# firewall-cmd --get-default-zone 
-		public
+# firewall-cmd --get-zones # list available zones: block dmz drop external home internal nm-shared public trusted work
+# firewall-cmd --get-default-zone # public
 ```
 
 ## <a name="summary"></a>Summary
