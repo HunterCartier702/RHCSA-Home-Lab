@@ -149,8 +149,8 @@ $ rsync -av srcDir/ cartier@rhelsvr:destDir/
 
 ```shell
 # From my desktop:
-$ rm srcDir/file01
-$ rsync -av --delete srcDir/ cartier@rhelsvr:destDir/
+$ rm srcDir/file01 # rm file in srcDir
+$ rsync -av --delete srcDir/ cartier@rhelsvr:destDir/ # now deletes file1 in destDir also
 	sending incremental file list
 	deleting file1
 	./
