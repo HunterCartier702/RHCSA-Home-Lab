@@ -174,9 +174,10 @@ Running - rules applied to the active firewall configuration in memory (temporar
 
 Permanent - Rules that have been saved and will load when the system starts.
 
+***ZONES:***
 <p align="center"><img alt="zones" src="rhel_server/08Zones.jpeg" height="auto" width="800"></p>
 
-'''console
+```console
 $ rpm -qa | grep firewalld # installed by default but can check this way
 $ sudo firewall-cmd --state # check to see if active
 $ sudo su
