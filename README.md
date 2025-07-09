@@ -59,17 +59,16 @@ The default repo’s after install did not have some tools in them and I realize
 
 ```console
 $ sudo su -
-# Each .repo file controls how dnf/yum accesses external software sources
-\# ls -l /etc/yum.repos.d/ # where .repo definitions live
-\# dnf install epel-release
-\# dnf repolist # check to see if repo was added
-\# dnf install htop
-\# dnf repolist --all # list disabled and enables repo's. prints very long list
-\# dnf repolist --all | grep supplementary 
+# ls -l /etc/yum.repos.d/ # where .repo definitions live
+# dnf install epel-release
+# dnf repolist # check to see if repo was added
+# dnf install htop
+# dnf repolist --all # list disabled and enables repo's. prints very long list
+# dnf repolist --all | grep supplementary 
 # practice enabling and disabling a repo
-\# dnf config-manager --enable rhel-9-for-x86_64-supplementary-rpms #enable repo
-\# dnf config-manager --disable rhel-9-for-x86_64-supplementary-rpms #disable repo
-\# dnf info screen # search repo's for a package named screen
+# dnf config-manager --enable rhel-9-for-x86_64-supplementary-rpms #enable repo
+# dnf config-manager --disable rhel-9-for-x86_64-supplementary-rpms #disable repo
+# dnf info screen # search repo's for a package named screen
 ```
 
 
