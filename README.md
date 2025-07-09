@@ -6,6 +6,7 @@
   - [Inital Setup](#initial)
   - [Installing Cockpit](#cockpit)
   - [Package Management](#package)
+  - [Rsync](#rsync)
   - [Summary](#summary)
 
 ## <a name="intro"></a>Introduction 
@@ -118,7 +119,7 @@ $ rpm -qa | less # search all isntalled packages. /openssh for faster search
 $ sudo rpm -i ./package.rpm # install specified package but not dependencies
 ```
 
-## Rsync
+## <a name="rsync"></a>Rsync
 Lets use rsync from my local machine to the server. I’ll start by creating a directory and put some junk files in there on my local machine.
 
 ```shell
@@ -134,10 +135,10 @@ $ mkdir destDir # on server I create the directory to transfer files to
 LinuxMint$ rsync -av srcDir/ cartier@rhelsvr:destDir/ 
 ```
 
-**Now we see the files transferred recursively **
+**Now we see the files transferred recursively:**
 <p align="center"><img alt="rsync" src="rhel_server/06rsync.png" height="auto" width="800"></p>
 
-We can also delete files from the destDir that do not exist in srcDir after making changes:
+**We can also delete files from the destDir that do not exist in srcDir after making changes:**
 
 ```shell
 LinuxMint$ rm srcDir/file01
@@ -149,6 +150,7 @@ LinuxMint$ rsync -av --delete srcDir/ cartier@rhelsvr:destDir/
 	total size is 1,386  speedup is 0.49
 ```
 
+**Now we can see the change of the deleted file on the remote directory:**
 <p align="center"><img alt="rsync" src="rhel_server/07rsync.png" height="auto" width="800"></p>
 
 ## <a name="summary"></a>Summary
