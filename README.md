@@ -126,7 +126,7 @@ Lets use rsync from my local machine to the server. I’ll start by creating a d
 # From my desktop I create a parent directory and a sub-directory:
 $ mkdir srcDir && cd srcDir
 $ touch file{1..100} # creates file1 - file99
-$ for f in ./file*; do echo "testing rsync" >> $f; done
+$ for f in ./file*; do echo "testing rsync" >> $f; done # adding junk data to all the files at once
 # i'll make another directory to test the recursion
 $ mkdir testDir && cd testDir
 $ touch test{1..100} 
