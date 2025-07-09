@@ -184,8 +184,8 @@ $ sudo firewall-cmd --state # check to see if active
 $ sudo su
 # firewall-cmd --get-zones # list available zones: block dmz drop external home internal nm-shared public trusted work
 # firewall-cmd --get-default-zone # public
-\# firewall-cmd --get-active-zones # list active zones and interfaces
-\# firewall-cmd --list-all # dumps current config
+# firewall-cmd --get-active-zones # list active zones and interfaces
+# firewall-cmd --list-all # dumps current config
 ```
 
 ## <a name="summary"></a>Summary
