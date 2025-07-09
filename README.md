@@ -71,6 +71,85 @@ $ sudo su -
 # dnf info screen # search repo's for a package named screen
 ```
 
+**Software Installs and Updates**
+
+```console
+# dnf install -y yum-utils 
+# needs-restarting -r # check if needs restart after upgrading
+# dnf install zip
+# dnf check-update # check packages ready for update
+# dnf upgrade
+# dnf search wget # search packages available 
+# dnf info wget # info on a package installed or not
+# dnf remove screen -y # remove a package
+# dnf grouplist | grep Tools # list package groups
+# dnf groupinstall "System Tools"
+# dnf history # history of installation transactions
+# dnf history info 9 # info on ech transaction. 9 for me is tmux
+```
+
+**Rollbacks**
+
+```console
+# dnf install tree
+# dnf history
+# dnf history rollback 23 # rollback everything up until history of 23 in my case it only uninstalled tree 
+# dnf history undo 25  # undo a single transaction.
+```
+
+**Modules**
+Allows Red Hat to ship multiple supported versions of key software and you can enable or disable the ones you want.
+
+```console
+# man dnf.modularity
+# dnf module list # list available modules in enabled repo's
+# dnf module enable php:8.3/common # dnf module enable <name>:<stream>/<profile>
+# dnf module list php # php  8.3 [e]. e means enabled
+# dnf module list --enabled 
+# dnf module reset php
+# dnf module list php # php  8.3 [d] # d means disabled
+```
+
+**RPM**
+
+```shell
+$ rpm -ql openssh-server # list files included in package and configs
+$ rpm -qa | less # search all isntalled packages. /openssh for faster search
+$ sudo rpm -i ./package.rpm # install specified package but not dependencies
+```
+
+## Rsync
+Lets use rsync from my local machine to the server. I’ll start by creating a directory and put some junk files in there on my local machine.
+
+```shell
+LinuxMint$ mkdir srcDir && cd srcDir
+LinuxMint$ touch file{1..100} # creates file1 - file100
+LinuxMint$ for f in ./file*; do echo "testing rsync" >> $f; done
+# i'll make another dir to test the recursion
+LinuxMint$ mkdir testDir && cd testDir
+LinuxMint$ touch test{1..100}
+LinuxMint$ cd # move to ~ 
+$ mkdir destDir # on server I create the directory to transfer files to
+# Below I append a / after srcDir to only cp files and not srcdir itself:
+LinuxMint$ rsync -av srcDir/ cartier@rhelsvr:destDir/ 
+```
+
+**Now we see the files transferred recursively **
+<p align="center"><img alt="rsync" src="rhel_server/06rsync.png" height="auto" width="800"></p>
+
+We can also delete files from the destDir that do not exist in srcDir after making changes:
+
+```shell
+LinuxMint$ rm srcDir/file01
+LinuxMint$ rsync -av --delete srcDir/ cartier@rhelsvr:destDir/
+	sending incremental file list
+	deleting file1
+	./
+	sent 2,804 bytes  received 25 bytes  1,886.00 bytes/sec
+	total size is 1,386  speedup is 0.49
+```
+
+<p align="center"><img alt="rsync" src="rhel_server/07rsync.png" height="auto" width="800"></p>
 
 ## <a name="summary"></a>Summary
 
