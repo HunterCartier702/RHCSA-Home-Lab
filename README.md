@@ -5,6 +5,7 @@
   - [Introduction](#intro)
   - [Inital Setup](#initial)
   - [Installing Cockpit](#cockpit)
+  - [Package Management](#package)
   - [Summary](#summary)
 
 ## <a name="intro"></a>Introduction 
@@ -20,7 +21,7 @@ Lenovo ThinkCentre M910S Intel i7 3.20 GHz, 16GB DDR4 RAM, 1TB SSD, and I instal
 
 **Side note:**
 
-As a mainly Ubuntu user, I noticed some things right away. The package managers yum and dnf update the local cache automatically when installing packages. In Ubuntu you would run ‘apt update’ then ‘apt install <package>’ to update the local cache to the latest and then install. With dnf you can run ‘dnf install <package>’ and it updates and installs packages automatically. Yum is sym linked to dnf anyway and so I will use dnf. Also, the /bin directory is sym-linked to /usr/bin along with a few other directories being linked to a /usr/* directory. 
+As an Ubuntu user, I noticed some things right away. The package managers yum and dnf update the local cache automatically when installing packages. In Ubuntu you would run ‘apt update’ then ‘apt install <package>’ to update the local cache to the latest and then install. With dnf you can run ‘dnf install <package>’ and it updates and installs packages automatically. Yum is sym-linked to dnf. Also, the /bin directory is sym-linked to /usr/bin along with a few other directories being linked to a /usr/* directory. 
 
 ## <a name="initial"></a>Initial Setup
 I ran through the anaconda installer which is really nice. I went with the “minimal install” software option. Openssh-server is installed by default, so I will transfer over the public key from my desktop and laptop to the authorized_keys  file for easier access. I will be using SSH for everything after the initial setup. 
@@ -50,6 +51,27 @@ $ sudo systemctl enable --now cockpit.socket
 ```
 
 <p align="center"><img alt="cockpit" src="rhel_server/05Cockpit.png" height="auto" width="800"></p>
+
+## <a name="package"></a>Package Management
+The default repo’s after install did not have some tools in them and I realized after an internet search that I will need to add more repositories to allow these tools such as htop.
+
+**Managing Repositories**
+
+```console
+$ sudo su -
+# Each .repo file controls how dnf/yum accesses external software sources
+\# ls -l /etc/yum.repos.d/ # where .repo definitions live
+\# dnf install epel-release
+\# dnf repolist # check to see if repo was added
+\# dnf install htop
+\# dnf repolist --all # list disabled and enables repo's. prints very long list
+\# dnf repolist --all | grep supplementary 
+# practice enabling and disabling a repo
+\# dnf config-manager --enable rhel-9-for-x86_64-supplementary-rpms #enable repo
+\# dnf config-manager --disable rhel-9-for-x86_64-supplementary-rpms #disable repo
+\# dnf info screen # search repo's for a package named screen
+```
+
 
 ## <a name="summary"></a>Summary
 
