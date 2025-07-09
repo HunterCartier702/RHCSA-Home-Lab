@@ -18,10 +18,13 @@ Lenovo ThinkCentre M910S Intel i7 3.20 GHz, 16GB DDR4 RAM, 1TB SSD, and I instal
 ***Lenovo ThinkCentre***
 <p align="center"><img alt="Tower" src="rhel_server/00Tower.jpeg" height="auto" width="800"></p>
 <p align="center"><img alt="HTOP" src="rhel_server/01HTOP.jpeg" height="auto" width="800"></p>
+
 ***CPU***
 <p align="center"><img alt="lscpu" src="rhel_server/03cpu.png" height="auto" width="800"></p>
+
 ***Memory and Storage***
 <p align="center"><img alt="memory" src="rhel_server/02memory.png" height="auto" width="800"></p>
+
 ***Installed extra SSD***
 <p align="center"><img alt="SSD" src="rhel_server/04SSDInstall.jpeg" height="auto" width="800"></p>
 
