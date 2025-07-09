@@ -8,7 +8,7 @@
   - [Summary](#summary)
 
 ## <a name="intro"></a>Introduction 
-I decided to try my luck at the RHCSA exam. I decided to use a mix of VM’s on Virtual Box and physical hardware to study for the Red Hat certification. I will be documenting some of what I learn while doing this lab in hopes that it helps reinforce the knowledge. By copying down the commands I run and looking them over I know it will help me retain the material. I bought a refurbished Lenovo for $120 dollars with these specs:
+I decided to try my luck at the RHCSA exam. I decided to use a mix of VM’s on Virtual Box and physical hardware to study for the Red Hat certification. I will be documenting some of what I learn while doing this lab in hopes that it helps reinforce the knowledge. By copying down the commands I run and looking them over I know it will help me retain the material. For this project I bought a refurbished Lenovo for $120 dollars with these specs:
 
 Lenovo ThinkCentre M910S Intel i5 6th Gen 3.20 GHz, 16GB DDR4 RAM, 1TB SSD, and I installed an extra 256GB SSD.
 
@@ -16,9 +16,9 @@ Lenovo ThinkCentre M910S Intel i5 6th Gen 3.20 GHz, 16GB DDR4 RAM, 1TB SSD, and 
 <p align="center"><img alt="HTOP" src="rhel_server/01HTOP.png" height="auto" width="800"></p>
 <p align="center"><img alt="lscpu" src="rhel_server/03cpu.png" height="auto" width="800"></p>
 <p align="center"><img alt="memory" src="rhel_server/02memory.png" height="auto" width="800"></p>
-<p align="center"><img alt="SSD" src="rhel_server/04SSDinstall.jpeg" height="auto" width="800"></p>
+<p align="center"><img alt="SSD" src="rhel_server/04SSDInstall.jpeg" height="auto" width="800"></p>
 
-Side note:
+**Side note:**
 
 As a mainly Ubuntu user, I noticed some things right away. The package managers yum and dnf update the local cache automatically when installing packages. In Ubuntu you would run ‘apt update’ then ‘apt install <package>’ to update the local cache to the latest and then install. With dnf you can run ‘dnf install <package>’ and it updates and installs packages automatically. Yum is sym linked to dnf anyway and so I will use dnf. Also, the /bin directory is sym-linked to /usr/bin along with a few other directories being linked to a /usr/* directory. 
 
@@ -50,12 +50,6 @@ $ sudo systemctl enable --now cockpit.socket
 ```
 
 <p align="center"><img alt="cockpit" src="images/05Cockpit.png" height="auto" width="800"></p>
-
-
-***HTOP is one of those tools that looks really confusing when you see it for the very first time. Once you start to learn to read it though, it really is an awesome tool:***
-
-
-
 
 ## <a name="summary"></a>Summary
 
