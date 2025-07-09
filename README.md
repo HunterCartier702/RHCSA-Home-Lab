@@ -162,6 +162,29 @@ $ rsync -av --delete srcDir/ cartier@rhelsvr:destDir/ # now deletes file1 in des
 <p align="center"><img alt="rsync" src="rhel_server/07rsync.png" height="auto" width="800"></p>
 
 ## <a name="firewall"></a>Firewalld
+Firewalld is a firewall management tool used on many Linux distributions. Firewalld has a few different configuration items:
+
+Zones - a group of rules that can be activated together and assigned to a network interface.
+
+Services - port or group of ports that must be configured together for a specific system service
+
+Ports - a port number (80) and type of traffic (TCP) used to enable network traffic.
+
+Running - rules applied to the active firewall configuration in memory (temporary).
+
+Permanent - Rules that have been saved and will load when the system starts.
+
+<p align="center"><img alt="zones" src="rhel_server/08Zones.png" height="auto" width="800"></p>
+
+'''console
+$ rpm -qa | grep firewalld # installed by default but can check this way
+$ sudo firewall-cmd --state # check to see if active
+$ sudo su
+# firewall-cmd --get-zones # list available zones
+		block dmz drop external home internal nm-shared public trusted work
+# firewall-cmd --get-default-zone 
+		public
+```
 
 ## <a name="summary"></a>Summary
 
