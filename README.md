@@ -10,7 +10,7 @@
 ## <a name="intro"></a>Introduction 
 I decided to try my luck at the RHCSA exam. I decided to use a mix of VM’s on Virtual Box and physical hardware to study for the Red Hat certification. I will be documenting some of what I learn while doing this lab in hopes that it helps reinforce the knowledge. By copying down the commands I run and looking them over I know it will help me retain the material. For this project I bought a refurbished Lenovo for $120 dollars with these specs:
 
-Lenovo ThinkCentre M910S Intel i5 6th Gen 3.20 GHz, 16GB DDR4 RAM, 1TB SSD, and I installed an extra 256GB SSD.
+Lenovo ThinkCentre M910S Intel i7 3.20 GHz, 16GB DDR4 RAM, 1TB SSD, and I installed an extra 256GB SSD.
 
 <p align="center"><img alt="Tower" src="rhel_server/00Tower.jpeg" height="auto" width="800"></p>
 <p align="center"><img alt="HTOP" src="rhel_server/01HTOP.png" height="auto" width="800"></p>
@@ -49,7 +49,7 @@ $ sudo dnf install cockpit
 $ sudo systemctl enable --now cockpit.socket
 ```
 
-<p align="center"><img alt="cockpit" src="images/05Cockpit.png" height="auto" width="800"></p>
+<p align="center"><img alt="cockpit" src="rhel_server/05Cockpit.png" height="auto" width="800"></p>
 
 ## <a name="summary"></a>Summary
 
