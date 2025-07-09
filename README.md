@@ -123,16 +123,15 @@ $ sudo rpm -i ./package.rpm # install specified package but not dependencies
 Lets use rsync from my local machine to the server. I’ll start by creating a directory and put some junk files in there on my local machine.
 
 ```shell
-LinuxMint$ mkdir srcDir && cd srcDir
-LinuxMint$ touch file{1..100} # creates file1 - file100
-LinuxMint$ for f in ./file*; do echo "testing rsync" >> $f; done
-# i'll make another dir to test the recursion
-LinuxMint$ mkdir testDir && cd testDir
-LinuxMint$ touch test{1..100}
-LinuxMint$ cd # move to ~ 
-$ mkdir destDir # on server I create the directory to transfer files to
-# Below I append a / after srcDir to only cp files and not srcdir itself:
-LinuxMint$ rsync -av srcDir/ cartier@rhelsvr:destDir/ 
+# From my desktop I create a parent directory and a sub-directory:
+$ mkdir srcDir && cd srcDir
+$ touch file{1..100} # creates file1 - file99
+$ for f in ./file*; do echo "testing rsync" >> $f; done
+# i'll make another directory to test the recursion
+$ mkdir testDir && cd testDir
+$ touch test{1..100} 
+# Below I append a / after srcDir to only cp files in srcDir and not the srcdir directory itself:
+$ rsync -av srcDir/ cartier@rhelsvr:destDir/ 
 ```
 
 **Now we see the files transferred recursively:**
@@ -141,8 +140,9 @@ LinuxMint$ rsync -av srcDir/ cartier@rhelsvr:destDir/
 **We can also delete files from the destDir that do not exist in srcDir after making changes:**
 
 ```shell
-LinuxMint$ rm srcDir/file01
-LinuxMint$ rsync -av --delete srcDir/ cartier@rhelsvr:destDir/
+# From my desktop:
+$ rm srcDir/file01
+$ rsync -av --delete srcDir/ cartier@rhelsvr:destDir/
 	sending incremental file list
 	deleting file1
 	./
@@ -155,5 +155,5 @@ LinuxMint$ rsync -av --delete srcDir/ cartier@rhelsvr:destDir/
 
 ## <a name="summary"></a>Summary
 
-I turned an old gaming laptop into a home server running Ubuntu 24.04.2 LTS just to mess around and learn more about Linux. I’ve been using Linux for over a year now and wanted to put what I’ve learned into action. In this project, I set up Samba, NFS, MariaDB, Apache2 (with a custom web page), and even installed a new SSD just for the fun of partitioning and formatting it. Then I tried out virtualization which required a lot more setup than VirtualBox. Everything’s still a work in progress, but it’s been a great learning experience so far. More to come!
+Enter summary here: lol
 
