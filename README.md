@@ -134,7 +134,7 @@ $ touch test{1..100}
 $ rsync -av srcDir/ cartier@rhelsvr:destDir/ 
 ```
 
-**Now we see the files transferred recursively:**
+**Now we see the files transferred recursively to the remote directory:**
 <p align="center"><img alt="rsync" src="rhel_server/06rsync.png" height="auto" width="800"></p>
 
 **We can also delete files from the destDir that do not exist in srcDir after making changes:**
