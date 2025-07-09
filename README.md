@@ -186,6 +186,7 @@ $ sudo su
 # firewall-cmd --get-default-zone # public
 # firewall-cmd --get-active-zones # list active zones and interfaces
 # firewall-cmd --list-all # dumps current config
+# firewall-cmd --list-services --zone=public # list configured services
 ```
 
 ## <a name="summary"></a>Summary
