@@ -7,6 +7,7 @@
   - [Installing Cockpit](#cockpit)
   - [Package Management](#package)
   - [Rsync](#rsync)
+  - [Firewalld](#firewall)
   - [Summary](#summary)
 
 ## <a name="intro"></a>Introduction 
@@ -14,10 +15,14 @@ I decided to try my luck at the RHCSA exam. I decided to use a mix of VM’s on 
 
 Lenovo ThinkCentre M910S Intel i7 3.20 GHz, 16GB DDR4 RAM, 1TB SSD, and I installed an extra 256GB SSD.
 
+***Lenovo ThinkCentre***
 <p align="center"><img alt="Tower" src="rhel_server/00Tower.jpeg" height="auto" width="800"></p>
 <p align="center"><img alt="HTOP" src="rhel_server/01HTOP.jpeg" height="auto" width="800"></p>
+***CPU***
 <p align="center"><img alt="lscpu" src="rhel_server/03cpu.png" height="auto" width="800"></p>
+***Memory and Storage***
 <p align="center"><img alt="memory" src="rhel_server/02memory.png" height="auto" width="800"></p>
+***Installed extra SSD***
 <p align="center"><img alt="SSD" src="rhel_server/04SSDInstall.jpeg" height="auto" width="800"></p>
 
 **Side note:**
@@ -152,6 +157,8 @@ $ rsync -av --delete srcDir/ cartier@rhelsvr:destDir/
 
 **Now we can see the change of the deleted file on the remote directory:**
 <p align="center"><img alt="rsync" src="rhel_server/07rsync.png" height="auto" width="800"></p>
+
+## <a name="firewall"></a>Firewalld
 
 ## <a name="summary"></a>Summary
 
