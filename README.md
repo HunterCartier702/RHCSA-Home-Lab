@@ -8,6 +8,7 @@
   - [Package Management](#package)
   - [Rsync](#rsync)
   - [Firewalld](#firewall)
+  - [SELinux](#selinux)
   - [Summary](#summary)
 
 ## <a name="intro"></a>Introduction 
@@ -123,7 +124,7 @@ Allows Red Hat to ship multiple supported versions of key software and you can e
 
 ```shell
 $ rpm -ql openssh-server # list files included in package and configs
-$ rpm -qa | less # search all isntalled packages. /openssh for faster search
+$ rpm -qa | less # search all installed packages. /openssh for faster search
 $ sudo rpm -i ./package.rpm # install specified package but not dependencies
 ```
 
@@ -214,6 +215,8 @@ $ sudo su
 
 I copied over a web page I made of my cats to /var/www/html/
 <p align="center"><img alt="httpd" src="rhel_server/09httpd.png" height="auto" width="800"></p>
+
+## <a name="selinux"></a>SELinux
 
 ## <a name="summary"></a>Summary
 
