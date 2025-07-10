@@ -192,14 +192,10 @@ $ sudo su
 ***Managing Zones***
 
 ```console
-# firewall-cmd --set-default-zone=home # changing default zone
-		success
-# firewall-cmd --zone=public --change-interface=enp0s31f6 --permanent
-# firewall-cmd --zone=trusted --change-interface=tailscale0 --permanent
-# firewall-cmd --zone=trusted --add-service=ssh --permanent
+# firewall-cmd --zone=internal --change-interface=tailscale0 --permanent
 # firewall-cmd --reload # reload rules from changed configs
 # firewall-cmd --list-all --zone=public
-# firewall-cmd --list-all --zone=trusted
+# firewall-cmd --list-all --zone=internal
 ```
 
 ## <a name="summary"></a>Summary
