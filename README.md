@@ -206,10 +206,12 @@ $ sudo su
 # dnf install httpd -y # install apache2
 # systemctl enable --now httpd # start httpd to visit and test firewall
 # firewall-cmd --add-service http --zone=public # adding http to a zone
-# firewall-cmd --reload 
+# firewall-cmd --reload
+# firewall-cmd --add-port 80/tcp --zone=public --permanent # this could also work 
 ```
 
 ***It worked. We can visit the web page.***
+
 I copied over a web page I made of my cats to /var/www/html/
 <p align="center"><img alt="httpd" src="rhel_server/09httpd.png" height="auto" width="800"></p>
 
