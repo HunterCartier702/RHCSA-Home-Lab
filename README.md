@@ -198,6 +198,21 @@ $ sudo su
 # firewall-cmd --list-all --zone=internal
 ```
 
+***Enabling Services and Ports***
+
+```console
+# firewall-cmd --list-services --zone=public
+		cockpit dhcpv6-client ssh # default zones of public
+# dnf install httpd -y # install apache2
+# systemctl enable --now httpd # start httpd to visit and test firewall
+# firewall-cmd --add-service http --zone=public # adding http to a zone
+# firewall-cmd --reload 
+```
+
+***It worked. We can visit the web page.***
+I copied over a web page I made of my cats to /var/www/html/
+<p align="center"><img alt="httpd" src="rhel_server/09httpd.png" height="auto" width="800"></p>
+
 ## <a name="summary"></a>Summary
 
 Enter summary here: lol
