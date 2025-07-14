@@ -220,5 +220,5 @@ I copied over a web page I made of my cats to /var/www/html/
 
 ## <a name="summary"></a>Summary
 
-Enter summary here: lol
+Enter summary here: Still in progress...
 
