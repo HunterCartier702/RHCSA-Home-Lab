@@ -7,6 +7,7 @@
   - [File Management Tools](#files)
   - [Managing Text Files](#awk)
   - [Local Consoles and SSH](#consoles)
+  - [Users and Groups](#sudo)
   - [Summary](#summary)
 
 ## <a name="intro"></a>Introduction 
@@ -207,6 +208,83 @@ $ sed -i -e '2d' ~/newfile.txt # del only line 2
 [Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
 
 ## <a name="consoles"></a>Local Consoles and SSH
+Non-graphical Environments
+
+```shell
+# Virtual terminals allow you to open 6 different terminal windows on the same console.
+# Press Alt+F1-6 to switch between consoles or use chvt.
+# Ctrl+Alt+fn+F7 is the graphical console in graphical environments
+$ sudo chvt 1 # Press 1-6 to switch. 7 for graphical console if there is one
+```
+
+Reboot and Poweroff
+
+```shell
+$ sudo systemctl reboot 
+$ sudo systemctl halt
+$ sudo systemctl poweroff
+or 
+$ sudo reboot # symlinked to /bin/systemctl
+$ ls -l $(which reboot)
+$ echo b > /proc/sysrq-trigger # from root shell to reset machine. Use as last resort
+```
+
+SSH and Related Utilities
+
+```shell
+$ sudo systecmctl status sshd # check if service is running
+$ sed -i -e '25d' ~/.ssh/known_hosts # remove fingerprint if misatch from changes
+$ ssh -Y user@server # connect to server and start graphical applications assuming X server is running and allowed
+$ ssh -p 2222 user@server # change port
+```
+
+SCP Secure Copy
+
+```shell
+$ scp /etc/hosts rhelsvr01:/tmp # connect using current user acc to transfer file
+$ scp cartier@rhelsvr01:/etc/hosts . # connect as user cartier and transfer hosts file to current directory
+$ scp -r rhelsvr01:/etc/ /tmp # recursively copy subdirectory to local tmp dir
+$ # -P to specify non-default port
+$ sftp cartier@rhelsvr01 # enter password and access files with interactive prompt
+	ls
+	pwd # show current remote dir
+	lpwd # show local current dir
+	lcd /tmp # change local dir
+	put secret_file.txt # upload a file
+	exit
+```
+
+Key-based Auth
+
+```shell
+$ ssh-keygen # generate keys and run through prompts
+$ ssh-copy-id rhelsvr01 # copy .pub key to remote server
+```
+
+[Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
+
+## <a name="sudo"></a>Users and Groups
+sudo and visudo
+
+<p align="center"><img alt="sudo" src="rhel_server/05visudo.png" height="auto" width="800"></p>
+
+```shell
+# 1. First field is user and % prefix is for Groups.
+# 2. ALL= means all hosts. (useful in distributed environments with shared sudoers files).
+# 3. User:Groups. Root user can run cmds as all users. tux can run cmds as root. If blank the root is implied
+# 4. Commands to which the rule applies. Use absolute path and seperate by a comma. An ! mark before command name negates or forbids the user from running it
+# Dan can run all commands without being prompted for sudo passwd
+# NOEXEC prevents spawning other commands with same privs
+
+$ sudo visudo # to edit /etc/sudoers file
+# or add a file to /etc/sudoers.d/ for a user 
+# files in sudoers.d/ must be owned by root with 0440 perms
+#/etc/sudoers.d/jdoe
+$ which systemctl
+$ jdoe ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart apache2
+$ linda ALL=/usr/bin/useradd, /usr/bin/passwd,! /usr/bin/passwd root
+$ pkexec visudo # in case you lock root account
+```
 
 [Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
 
