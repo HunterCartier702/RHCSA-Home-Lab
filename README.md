@@ -5,6 +5,8 @@
   - [Introduction](#intro)
   - [Basic Shell Skills](#basic)
   - [File Management Tools](#files)
+  - [Managing Text Files](#awk)
+  - [Local Consoles and SSH](#consoles)
   - [Summary](#summary)
 
 ## <a name="intro"></a>Introduction 
@@ -104,6 +106,8 @@ $ info '(coreutils) ls invocation' # read info page
 $ ls /usr/share/doc # documentation files
 ```
 
+[Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
+
 ## <a name="files"></a>File Management Tools
 Viewing Mounts
 
@@ -114,10 +118,101 @@ $ df -Th # show available disk space on mounted devices
 $ findmnt # show mounts and relationship between different mounts
 ```
 
+Copy Files and Directories
+
+```shell
+$ ls -lrt # list recently modified files last 
+$ cp /somedir/.* /tmp/ # copy all hidden files
+$ cp -a /somedir/ /tmp/ # -a=archive. cp somedir and hidden and normal files to /tmp
+$ cp -a /somedir/. . # copies all files regular and hidden to current dir
+```
+
+Using Links
+
+```shell
+$ touch file1; ln file1 file2 # create hard link
+# cannot hard link to directories
+# to create hard links you must be the owner of the item you want to link to
+$ ln /etc/passwd . # this wont work as root owns this file
+$ ln -s /etc/passwd . # creates a sym-link named passwd in current dir owned by current user
+$ # unlink <file> or rm <file> to unlink. Just deletes the file
+```
+
+Archives and Compressed Files
+
+```shell
+# to archive a file you need read perms on it and execute perms on the directory the file resides in
+$ mkdir testdir && touch testdir/file{1..100} # create junk in testdir
+$ tar -cvf test-$(date +%F).tar testdir/ # archive testdir and files inside
+$ tar -rvf existing.tar /etc/hosts # -r=append adds a file to an existing archive
+$ tar -uvf existing.tar # update existing archive. write newer version of /home to archive
+$ tar -tf existing.tar # to view contents of archive
+$ file existing.tar # show what type of file
+$ tar -xvf existing.tar # x=extract archive
+$ tar -xvf existing.tar -C /tmp etc/hosts # unpack hosts file to /tmp
+$ tar -xvf existing.tar etc/hosts # extract a only single file named hosts from archive
+$ tar -cjvf test.tar.bz2 ./* # -j=bzip2. bzip2/bunzip2
+$ tar -cJvf test.tar.xz ./* # -J=xz 
+$ tar -czvf test.tar.gz ./* # z=gzip gzip/gunzip
+```
+
+
+[Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
+
+## <a name="awk"></a>Managing Text Files
+Cut
+
+```shell
+$ ps aux | less -N --use-color # pipe long output to less pager and -N for line numbering
+$ sudo tail -f /var/log/messages # monitors the last 10 lines 
+$ # cut: -d=field-delimiter -f="number of fields"
+$ cut -d : -f 1 /etc/passwd | sort # show only users in byte order
+$ cut -d : -f 3 /etc/passwd | sort -n # sort 3rd field numerically
+$ du -h | sort -rn # sort largest files first
+$ sort -k3 -t : /etc/passwd # sort third column w/ field-sep :
+$ ps aux | sort -k 4 -nr | less # numerically reverse sort memory usage. 
+$ ps aux | wc
+		lines  words  chars
+    200    2267   17520
+```
+
+Simple Regex
+
+```shell
+# safer to quote expressions
+$ grep '^anna' /etc/passwd # search lines where anna is at the beginning
+$ grep 'bash$' /etc/passwd # search lines that end w/ bash
+$ grep 'r..t' /etc/passwd # '.' is a single wildcard
+$ grep 'r[aut]t' /etc/passwd # matches a single char from the range of chars
+$ ls -R Pictures/*.png # '*' match zero or more previous chars
+$ grep 're\{2\}t' /etc/passwd # matches reed not red. If you know how many of the previous chars you want to match. 
+$ grep 'ro\{1,3\}t' /etc/passwd # matchs min 1 max 3 of previous char
+$ grep 'ro\?t' /etc/passwd # matches zero or one of the previous char
+$ grep 'ro\+t' /etc/passwd # matches one or more of the previous char
+$ (...) # group multiple chars so that regex can appy to the group
+$ grep -v -e '^#' -e '^$' /etc/services | less # exclude blank lines and lines that start w/ #
+```
+
+awk and sed
+
+```shell
+$ awk -F : '{ print $4 }' /etc/passwd # prints only the 4th field
+$ awk -F : '/user/ { print $4 }' /etc/passwd # print 4th field of any line w/ user
+$ sed -n 5p /etc/passwd # print the 5th line in passwd file
+$ sed -i 's/old/new/g' ~/newfile.txt # replace old text w/ new
+$ sed -i -e '2d;20,25d' ~/newfile.txt # delete lines 2 and 20-25
+$ sed -i -e '2d' ~/newfile.txt # del only line 2
+```
+
+[Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
+
+## <a name="consoles"></a>Local Consoles and SSH
 
 [Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
 
 ## <a name="summary"></a>Summary
 
 Enter summary here: Still in progress...
+
+[Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
 
