@@ -2434,7 +2434,7 @@ $ cd /users/user1
 
 [Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
 
-Configuring Time Services
+## <a name="time"></a>Configuring Time Services
 Understanding Time
 
 ```shell
