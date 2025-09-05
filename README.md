@@ -452,7 +452,7 @@ Understanding Advanced Permissions
 # file will run as set user
 $ ll /usr/bin/passwd
 	-rwsr-xr-x. 1 root root 32648 Aug 10  2021 /usr/bin/passwd
-# lowercase s means SUID and execute is set. Capital S means on SUID is set
+# lowercase s means SUID and execute is set. Capital S means only SUID is set
 
 # 2 set group ID (SGID)
 # If set on an executable, gives user perms of group owner of that file when executed
