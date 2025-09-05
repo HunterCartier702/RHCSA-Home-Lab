@@ -117,6 +117,7 @@ $ man ls # type /example for usage or look for See Also section
 $ # serach the mandb with 'man -k' and 'apropos' using keywords
 $ apropos partition
 $ man -f ls
+$ man -k ls
 $ sudo mandb # update mandb
 $ man ls 
 	G # to go to bottom
