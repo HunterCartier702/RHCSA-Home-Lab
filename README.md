@@ -165,7 +165,7 @@ Archives and Compressed Files
 $ mkdir testdir && touch testdir/file{1..100} # create junk in testdir
 $ tar -cvf test-$(date +%F).tar testdir/ # archive testdir and files inside
 $ tar -rvf existing.tar /etc/hosts # -r=append adds a file to an existing archive
-$ tar -uvf existing.tar # update existing archive. write newer version of /home to archive
+$ tar -uvf existing.tar /home # update existing archive. write newer version of /home to archive
 $ tar -tf existing.tar # to view contents of archive
 $ file existing.tar # show what type of file
 $ tar -xvf existing.tar # x=extract archive
