@@ -472,7 +472,7 @@ Applying Advanced Permissions
 
 ```shell
 $ chmod 4755 somedir/ # apply SGID to a directory
-$ chmod u+s # SGID
+$ chmod u+s # SUID
 $ chmod g+s # SGID
 $ chmod +t # # sticky bit
 $ chmod g+s,o+t data/sales/
