@@ -54,7 +54,7 @@ Vim Basics
 dd # delete current line into memory
 yy # copies current line
 p # pastes current line
-v # visual mode and you can selece blocks of text. d to cut y to copy
+v # visual mode and you can select blocks of text. d to cut y to copy
 u # undo last command
 Ctrl+r # Redo last command. Only once
 ?text # search backwards 
