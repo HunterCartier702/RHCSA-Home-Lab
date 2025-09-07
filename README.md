@@ -1281,12 +1281,13 @@ Making Apache Use Syslog
 ```shell
 $ dnf install -y httpd
 $ vim /etc/httpd/conf/httpd.conf
-	ErrorLog    syslog:local1
+	ErrorLog    syslog:local1 # add this to ErroLog in conf file
 $ systemctl start httpd
 $ vim /etc/rsyslog.d/httpd-error.conf # create drop in file or edit rsyslog.conf directly
 	local1.error    /var/log/httpd-error.log # add this line to drop in file to change log error location
 $ systemctl restart rsyslog # reload config
 # Generate an error to be passed to log
+$ logger -p local1.error "Test Error" # generate a log
 $ cat /var/log/httpd-error.log # view errors
 
 # Extra testing
