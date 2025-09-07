@@ -1206,7 +1206,7 @@ Systemd-journald and rsyslogd intro
 ```shell
 # systemd-journald collect messages from the kernel, entire boot process, and services, and writes them to a event journal
 # this journal is stored in binary format and queried via 'journalctl' command
-# the journal is not persisnent between reboots, but are fowarded to rsyslog
+# the journal is not persistent between reboots, but are forwarded to rsyslog
 # rsyslogd writes messages to different files in /var/log/
 
 #to get more info on a machine, these may be helpful:
