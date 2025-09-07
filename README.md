@@ -961,7 +961,7 @@ systemctl unit commands
 ```shell
 $ systemctl -t service # show only service units
 $ systemctl list-units -t service # show all active service units(same above)
-$ systemctl list-units -t service --all # show alos inactive service units
+$ systemctl list-units -t service --all # show all inactive service units
 $ systemctl --failed -t service # show all failed services
 $ systemctl status -l sshd.service # show detailed info about services
 ```
@@ -1006,7 +1006,7 @@ $ systemctl start httpd # start service
 $ systemctl status httpd # check status
 $ pkill httpd # kill the service
 $ systemctl status httpd # will be stopped but will restart in 5 seconds
-$ sudo systemctl revert httpd.service # This deletes the drop-in override and reverts to the default unit file.
+$ systemctl revert httpd.service # This deletes the drop-in override and reverts to the default unit file.
 ```
 
 Man Pages
