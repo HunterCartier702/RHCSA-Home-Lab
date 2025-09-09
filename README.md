@@ -63,6 +63,15 @@ $ # go to end of line
 :%s/old/new/g # replace all occurances of old w/ new. 'gc' to add confirmations
 ```
 
+My personal .vimrc file:
+
+```shell
+syntax on
+set number
+set cursorline
+set cursorcolumn
+```
+
 I/O Redirection
 
 ```shell
