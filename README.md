@@ -1646,15 +1646,15 @@ LVM Quick Notes
 ```shell
 Disk/Partition --> Physical Volume --> Volume Group --> Logical Volume
 # storage devices need to be flagged as physical volumes, which makes them usable in an LVM environment
-# a physical storage device that is that is turned into physical volume, can be added to the volume group
+# a physical storage device that is turned into a physical volume, can be added to the volume group
 # a volume group is not a fixed amount of storage
 # if you are running out of disk space on a logical volume, you take available disk space from the volume group
 # if theres no disk space on the volume group, you add to it by adding a physical volume
 # although a logical volume can span multiple physical volumes, if one fails then the whole logical volume is unusable
-# you can extend or reduce the file system on an LVM if the file system allows it
+# you can extend or reduce the file system on an LVM if the file system type allows it
 # ext4 supports growing and shrinking
 # xfs size can only be increased
-# Remember the following commands and press TAB twice to see options instead of remembering all commands:
+# Remember the following commands and press TAB twice to see options instead of trying to remember all commands:
 $ pv <TABx2>
 $ vg <TABx2>
 $ lv <TABx2>
