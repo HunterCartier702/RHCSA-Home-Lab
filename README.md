@@ -1612,20 +1612,27 @@ without this section the file cannot be 'enabled'
 Example:
 -------
 $ mkdir /mount/exercise
-$ vim /etc/systemd/system/exercise.mount
+$ systemd-escape -p --suffix=mount "/mount/exercise" # generate a name to use for file as it has to match mount directory exactly
+	mount-exercise.mount
+$ vim /etc/systemd/system/mount-exercise.mount
 
 [Unit]
 Before=local-fs.target
 [Mount]
 What=/dev/nvme0n1p2
-Where=/exercise
+Where=/mount/exercise
 Type=ext4
 [Install]
 WantedBy=multi-user.target
 
-$ systemctl enable --now exercise.mount
-$ systemctl status exercise.mount # see status or view errors if any
-$ journalctl -u exercise.mount # view errors if any
+$ systemctl daemon-reload
+$ systemctl enable --now mount-exercise.mount
+$ systemctl status mount-exercise.mount # see status or view errors if any
+$ journalctl -u mount-exercise.mount # view errors if any
+
+Other 'What=' Entries:
+What=/dev/disk/by-uuid/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+What=/dev/disk/by-label/MYDISK
 ```
 
 [Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
