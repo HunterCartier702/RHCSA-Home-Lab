@@ -1504,16 +1504,40 @@ Swap:          18243           0       18243
 $ echo "/dev/nvme0n1p3 none swap defaults 0 0" >> /etc/fstab # add to fstab
 ```
 
+Understanding dd
+
+```shell
+$ dd if=/dev/zero of=/swapfile bs=512M count=2   # 1 GiB total (512 x 2 = 1024)
+# bs=512M count=2 creates a 1 GiB swapfile.
+# if=/dev/zero
+# Input file = /dev/zero. This special file gives an endless stream of zeros. Perfect for filling a file with empty space.
+
+# of=/swapfile
+# Output file = /swapfile. This is the file we’re creating for swap.
+
+# bs=512M
+# Block size = 512M. This tells dd to copy data in chunks of 512M at a time.
+# Think of bs as the "size of each chunk" being written.
+
+# count=2
+# Number of blocks to copy = 2.
+# This is how you control the final file size.
+# File size = bs × count
+
+# bs=BYTES - read and write up to BYTES bytes at a time (default: 512) add 'M' for larger block size than default
+# count=N - copy only N input blocks
+```
+
 Adding Swap Files
 
 ```shell
 # if you do not have enough disk space and need swap urgently, you can create a swap file
-$ mkdir /swapfile
-# add 100 blocks with a size of 1Mib to /swapfile. Result is 100MiB file for swap 
-$ dd if=/dev/zero of=/swapfile bs=1M count=100 
+$ touch /swapfile 
+$ dd if=/dev/zero of=/swapfile bs=512M count=2 # size 1024M or 1 GiB
 $ chmod 0600 /swapfile # secure permissions
 $ mkswap /swapfile # mark as swap
 $ swapon /swapfile # activate swap
+$ swapon --show # view swap
 $ echo "/swapfile none swap defaults 0 0" >> /etc/fstab # add to fstab
 $ swapoff /dev/nvme0n1p5 # to turn off
 ```
