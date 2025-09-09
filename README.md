@@ -1693,12 +1693,12 @@ Creating Volume Groups
 
 ```shell
 $ vgcreate vgtest /dev/nvme0n1p1 # create volume group vgtest and add first partition
-$ vgcreate vgdata /dev/sdc # creates a vg and marks the entire disk as a pv
+$ vgcreate vgtest /dev/sdc # creates a vg and marks the entire disk as a pv
 $ vgs # show short summary of volume group
-$ vgdisplay vgdata # show more info
+$ vgdisplay vgtest # show more info
 $ vgcreate -s # specify extent size. multiples of 2. 128MiB is Max.
 # Removes the VG and *all* logical volumes in it
-$ vgremove myvg
+$ vgremove vgtest
 ```
 
 Creating Logical Volumes and Filesystems
@@ -1710,7 +1710,7 @@ Creating Logical Volumes and Filesystems
 # -l can also specify the number of extents you wnat the lv to use
 # -n to specify the name of lv
 # create lv named lvtest and a size of 100 extents and add that to vgdata vg
-$ lvcreate -n lvtest -l 100 vgdata 
+$ lvcreate -n lvtest -l 100 vgtest
 # once an lv has been created, you can use mkfs to put a file system on it
 
 # Creating Logical Volume with File System:
