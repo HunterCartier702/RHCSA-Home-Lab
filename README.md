@@ -1715,14 +1715,13 @@ $ lvcreate -n lvtest -l 100 vgtest
 
 # Creating Logical Volume with File System:
 # PV and VG have already been created
-# create a lv  with name lvtest and uses 50% available disk space in the vgtest volume group:
+# create an lv with the name lvtest that uses 50% available disk space in the vgtest volume group:
 $ lvcreate -n lvtest -l 50%FREE vgtest
 $ lvs # to show info
-$ mkfs.ext4 /dev/vgtest/lvtest
-$ mkdir files
+$ mkfs.ext4 /dev/vgtest/lvtest # add filesystem
+$ mkdir files # create mount point
 $ /dev/vgtest/lvtest /files ext4 defaults 0 0 # add to fstab
-$ mount -a
-$ lsblk
+$ mount -a # mount all
 # Removes one LV from a VG
 $ lvremove /dev/myvg/mylv
 ```
