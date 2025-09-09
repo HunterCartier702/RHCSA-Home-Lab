@@ -1450,7 +1450,7 @@ $ tune2fs -l /dev/nvme0n1p2 # list file system properties
 
 $ tune2fs -o # set default filesystem mount options
 $ tune2fs -o acl,user_xattr # switch access on
-$ $ tune2fs -o ^acl,user_xattr # ^ switches access off
+$ tune2fs -o ^acl,user_xattr # ^ switches access off
 
 $ tune2fs -O # filesystems come with defaults enabled. use ^ to disable these features
 
@@ -1508,6 +1508,7 @@ Adding Swap Files
 
 ```shell
 # if you do not have enough disk space and need swap urgently, you can create a swap file
+$ mkdir /swapfile
 # add 100 blocks with a size of 1Mib to /swapfile. Result is 100MiB file for swap 
 $ dd if=/dev/zero of=/swapfile bs=1M count=100 
 $ chmod 0600 /swapfile # secure permissions
