@@ -1882,9 +1882,10 @@ $ startis pool create newpool /dev/sdb # create new pool from sdb
 $ startis pool add-data mypool /dev/sdc # add additional block devices
 4. now you have a pool you can create a FS: startis fs create pool-name fsname
 5. stratis fs list # verify that all was created
-6. to mount in fstab you MUST use UUID, device names not supported? didnt work for me though..
-I had to use /dev/stratis/<poolname>/<fsName> for fstab to automount..
-If you want to keep the /dev path and be safe at boot, you could add 'nofail' so the system still comes up even if Stratis doesn’t
+6. to mount in fstab you MUST use UUID, device names not supported
+# Grab UUID with lsblk -f, blkid, stratis fs list
+# or use /dev/stratis/<poolname>/<fsName> for fstab to automount
+# can add 'nofail' so the system still comes up even if Stratis doesn’t
 also include mount option 'x-systemd.requires=stratisd.service'
 this will mount the system after stratisd.service is started
 
@@ -1908,7 +1909,7 @@ $ stratis fs create mypool stratis1 # create first stratis FS. u dont have to sp
 $ stratis fs list # grab UUID and verify creation
 $ mkdir /stratis1 # create mount point
 # add to /etc/fstab:
-$ /dev/stratis/mypool/stratis1 /stratis1 xfs defaults,x-systemd.requires=stratisd.service 0 0
+$ UUID=<UUID> /stratis1 xfs defaults,x-systemd.requires=stratisd.service 0 0
 $ mount -a # to mount
 # extra: 
 $ cp /etc/[a-f]* /stratis1 # copy some files to /stratis1
