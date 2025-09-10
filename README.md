@@ -1782,6 +1782,7 @@ $ lvresize -r -l 75%FREE /dev/vgdata/lvdata
 
 ```shell
 # Examples with -L (absolute or relative size in human-readable units)
+# -r|--resizefs Resize underlying filesystem together with the LV using fsadm(8).
 
 # 1. Extend LV to an exact size of 50 GB
 $ lvextend -r -L 50G /dev/vg_data/lv_storage
