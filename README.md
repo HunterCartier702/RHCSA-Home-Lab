@@ -1742,7 +1742,7 @@ lrwxrwxrwx. 1 root root 7 Aug  8 15:54 /dev/mapper/vgtest-lvtest -> ../dm-3
 lrwxrwxrwx. 1 root root 7 Aug  8 15:54 /dev/vgtest/lvtest -> ../dm-3
 ```
 
-Resizing LVM Logical Volumes
+Understanding Resizing LVM Logical Volumes
 
 ```shell
 # For Ext4 file systems, you must unmount to decrease the size
@@ -1754,7 +1754,7 @@ $ vgreduce # remove physical volumes out of VG
 2. use the vgextend command to extend the volume group
 ```
 
-Resizing Logical Volumes and File Systems
+Examples of Resizing Logical Volumes and File Systems
 
 ```shell
 $ lvextend # the command to extend logical volumes
