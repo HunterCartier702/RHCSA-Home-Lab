@@ -1746,7 +1746,7 @@ Understanding Resizing LVM Logical Volumes
 
 ```shell
 # For Ext4 file systems, you must unmount to decrease the size
-# to increase the size of LV, you must have disk space in Volume Group
+To increase the size of a Logical Volume, you must have disk space in the Volume Group
 $ vgextend # add storage to VG
 $ vgreduce # remove physical volumes out of VG
 # Adding storage:
@@ -1763,8 +1763,8 @@ $ lvextend -r # extend LV & filesystem at the same time. Recommended to the alte
 $ lvextend -L +1G -r /dev/vgdata/lvdata # easiest way to resize using '-L' 
 # -l allows you to specify either the number of extents, or the absoulute or relative number of extents in the VG to be used
 
-# resize the LV so that it will take 75% of total disk space in VG. if current LV is
-# using more than 75% of VG disk space, this command will try to reduce the LV size!
+# resize the LV so that it will take 75% of total disk space in VG.
+# if current LV is using more than 75% of VG disk space, this command will try to reduce the LV size!
 $ lvresize -r -l 75%VG /dev/vgdata/lvdata 
 
 # tries to add 75% of the total size of the volume group to the logial volume.
@@ -1775,7 +1775,7 @@ $ lvresize -r -l +75%VG /dev/vgdata/lvdata
 $ lvresize -r -l +75%FREE /dev/vgdata/lvdata
 
 # resize the logical volume to a total size that equals 75% of the amount of free disk space
-# which meay result in an attempt to reduce the logical volume size
+# which may result in an attempt to reduce the logical volume size
 $ lvresize -r -l 75%FREE /dev/vgdata/lvdata
 ```
 
