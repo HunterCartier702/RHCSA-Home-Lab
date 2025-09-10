@@ -1824,6 +1824,7 @@ Resizing my Logical Volume
 $ pvs # show current PV  
 $ vgs # show current VG
 $ lsblk # verify extra unused partition nvme0n1p2
+$ pvcreate /dev/nvme0n1p2 # mark as PV
 $ vgextend vgtest /dev/nvme0n1p2 # extend vgdata with total size of partition
 $ vgs # verify available volume group size has increased 
 $ lvs # verify current size of Logical Volume lvtest
