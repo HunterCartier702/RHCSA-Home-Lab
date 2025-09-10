@@ -1849,7 +1849,7 @@ Reducing Volume Groups
 # i have 2 partitions not used with 2GiB each. nvme0n1p3 and nvme0n1p4
 $ vgcreate vgdemo /dev/nmve0n1p3 # create VG AND mark partition as PV at once
 $ lvcreate -L 1G -n lvdemo /dev/vgdemo # create LV with a size of 1GiB
-$ vgextend vgdemo /dev/nvme0n1p4 # extend VG
+$ vgextend vgdemo /dev/nvme0n1p4 # mark partition as PV & extend VG
 $ pvs # verify extent usage. p3 is using half its extents & p4 is using none
 $ lvextend -L +500M /dev/vgdemo/lvdemo /dev/nvme0n1p4 # grow lvdemo. notice you have to add p4 to ensure that free extents will be taken from p4 device
 $ pvs # to verify extent usage on p4
