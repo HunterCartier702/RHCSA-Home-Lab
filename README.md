@@ -1911,7 +1911,8 @@ $ mkdir /stratis1 # create mount point
 # add to /etc/fstab:
 $ UUID=<UUID> /stratis1 xfs defaults,x-systemd.requires=stratisd.service 0 0
 $ mount -a # to mount
-# extra: 
+
+# Make a snapshot: 
 $ cp /etc/[a-f]* /stratis1 # copy some files to /stratis1
 $ stratis filesystem snapshot mypool stratis1 stratis1-snap # take a snapshot of volume
 $ stratis filesystem list # get statistics about usage
