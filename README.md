@@ -1707,9 +1707,9 @@ Creating Logical Volumes and Filesystems
 # must specify volume name and size when creating lv
 # -L specifies absoulute value. '-L 5G' to create 5Gib volume
 # -l to create relative sizes. '-l 50%FREE' to use half of all disk space available
-# -l can also specify the number of extents you wnat the lv to use
+# -l can also specify the number of extents you want the lv to use
 # -n to specify the name of lv
-# create lv named lvtest and a size of 100 extents and add that to vgdata vg
+# create lv named lvtest and a size of 100 extents and add that to vgtest vg
 $ lvcreate -n lvtest -l 100 vgtest
 # once an lv has been created, you can use mkfs to put a file system on it
 
