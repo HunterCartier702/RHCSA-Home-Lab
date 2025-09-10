@@ -1760,6 +1760,7 @@ Examples of Resizing Logical Volumes and File Systems
 $ lvextend # the command to extend logical volumes
 $ lvextend -r # extend LV & filesystem at the same time. Recommended to the alternative that does it seperately
 # lvresize -r, same as above command
+
 $ lvextend -L +1G -r /dev/vgdata/lvdata # easiest way to resize using '-L' 
 # -l allows you to specify either the number of extents, or the absoulute or relative number of extents in the VG to be used
 
