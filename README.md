@@ -2238,7 +2238,9 @@ $ man semanage-fcontext # '/EXAMPLE' to see examples
 $ dnf install -y httpd curl 
 $ mkdir /web
 $ vim /web/index.html # add: "New webserver"
-$ vim /etc/httpd/conf/httpd.conf # DocumentRoot "/web"
+$ vim /etc/httpd/conf/httpd.conf
+# Edit 'DocumentRoot' & '<Directory>', or preferred: copy and paste into '/etc/httpd/conf.d/web.conf'
+# DocumentRoot "/web"
 # <Directory "/web"> # just copy original and change
 $ systemctl restart httpd
 $ curl -s localhost:80 # shows default RHEL webpage, SELinux currently blocks new webpage
