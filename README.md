@@ -2373,7 +2373,7 @@ $ firewall-cmd --runtime-to-permanent # make all changes in mem to disk, this co
 ```shell
 $ man firewalld.zones 
 $ rpm -qa | grep firewalld # installed by default but can check this way
-$ sudo firewall-cmd --state # check to see if active
+$ firewall-cmd --state # check to see if active
 $ firewall-cmd --zone=internal --change-interface=tailscale0 --permanent # change an interface to a zone
 $ firewall-cmd --zone=internal --add-interface=tailscale0 --permanent # add an interface to zone
 $ firewall-cmd --permanent --add-source=192.168.0.0/24 # add source ip to a zone
