@@ -2399,8 +2399,8 @@ Setting Up NFS Share (not req. for RHCSA)
 
 $ mkdir -p /nfsdata /users/user1 /users/user2 # create shared dirs. copy some random data into them
 $ vim /etc/exports 
-	/nfsdata *(rw,no_squash_root)
-	/users *(rw,no_squash_root)
+	/nfsdata *(rw,no_root_squash)
+	/users *(rw,no_root_squash)
 $ dnf install nfs-utils -y
 $ systemctl enable --now nfs-server.service
 $ firewall-cmd --add-service=nfs # add services to firewall
