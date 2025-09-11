@@ -1967,7 +1967,7 @@ $ lspci -k # lists all kernel modules that are used for the PCI devices detected
 Managing Kernel Module Parameters
 
 ```shell
-# you may want to load modules w/ specific parameteres
+# you may want to load modules w/ specific parameters
 # first find which parameter you want to use
 # then load module manually and specify the parameter with the value to use
 # or automate this by creating a file in /etc/modprobe.d directory
@@ -2010,7 +2010,7 @@ $ grep Isolate *.target # list all AllowIsolate targets
 $ systemctl isolate rescue.target # switches computer into rescue.target
 $ systemctl isolate reboot.target # reboots computer
 $ systemctl get-default # see current default target
-$ systemctl set-default <*.target> # set new default targer
+$ systemctl set-default <*.target> # set new default target
 
 # set graphical.target as default:
 $ dnf group list # list package groups
