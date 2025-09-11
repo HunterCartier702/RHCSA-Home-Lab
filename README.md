@@ -2067,7 +2067,7 @@ Reinstalling GRUB Using a Rescue Disk
 
 ```shell
 # you will need a rescue disk if GRUB breaks to reinstall
-# After restoring access to the server using a rescue disk using and using 'chroot /mnt/sysimage', reinstalling grun is not hard
+# After restoring access to the server using a rescue disk using and using 'chroot /mnt/sysimage', re-installing grub is not hard
 # you can then install grub on the desired device.
 # use 'grub2-install' followed by the name of the device. 
 $ grub2-install /dev/sda # for example
