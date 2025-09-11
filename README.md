@@ -2362,12 +2362,12 @@ $ firewall-cmd --list-all --zone=<zone> # show info on any zone
 $ firewall-cmd --add-service=vnc-server # add vnc server access in firewall
 $ firewall-cmd --add-service=vnc-server --permanent # make it persist reboots
 $ firewall-cmd --reload # load config in memory to disk to take effect now
-$ $ firewall-cmd --remove-service=vnc-server # remove service
+$ firewall-cmd --remove-service=vnc-server # remove service
 $ firewall-cmd --add-port=2020/tcp --permanent # add port to current config. --reload to add to disk
 $ firewall-cmd --list-all # shows port 2020 now
 $ firewall-cmd --list-all-zones # list configs for all zones
 # on exam work with services not ports if possible
-$ firewall-cmd --runtime-to-permanent # make all changes to mem, then this command will make them perm, w/o having to append --permanent each time
+$ firewall-cmd --runtime-to-permanent # make all changes in mem to disk, this command will make them perm, w/o having to append --permanent each time
 ```
 
 ```shell
