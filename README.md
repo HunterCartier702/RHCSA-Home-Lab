@@ -2188,8 +2188,8 @@ $ /etc/httpd/conf.modules.d # drop in for modules to use their own module specif
 SELinux Modes
 
 ```shell
-# SELinux is Enabled or Disabled
-# If Enabled, it can me in Enforcing mode (fully operational) or Permissive mode (only logs)
+# SELinux is either Enabled or Disabled
+# If Enabled, it can be in Enforcing mode (fully operational) or Permissive mode (only logs)
 # Changing from Enabled or from Disabled, requires a reboot
 $ /var/log/audit/audit.log # SELinux logs
 $ /etc/sysconfig/selinux # to set the default of SELinux while booting
