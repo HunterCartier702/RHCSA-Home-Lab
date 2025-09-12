@@ -2535,7 +2535,7 @@ $ timedatectl set-timezone Europe/Amsterdam # set timezone to amsterdam
 $ timedatectl show # formats output differently
 $ timedatectl set-ntp 1 # switch on ntp
 $ systemctl status chronyd # make sure its running
-$ timedatectl set-time <TIME>
+$ timedatectl set-time <TIME> # hour:min:sec 18:05:01
 ```
 
 Managing Time Zone Settings
