@@ -2643,7 +2643,7 @@ Managing Containers
 $ podman stop <NAME> # sends SIGTERM to container, then SIGKILL if no response
 $ podman kill <NAME> # immediately sends SIGKILL
 $ podman restart <NAME> # restart a container
-$ podman rm <NAME> # rm container (rmi removes and image)
+$ podman rm <NAME> # rm container (rmi removes image)
 ```
 
 Running Commands in a Container
