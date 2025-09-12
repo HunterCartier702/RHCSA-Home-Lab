@@ -2696,7 +2696,7 @@ Managing Container Storage
 $ semanage fcontext -a -t container_file_t "/hostdir(/.*)?"; restorecon # manually set context on directory to be used for storage
 # can automatically set the context if the user who runs the container is also the owner of it, and not just write perms on directory
 # add '-v host_dir:container_dir' to mount the volume to container
-# '-v host_dir:container_dir:Z' to mount volume if user running the container is the owner, or is a root container
+# '-v host_dir:container_dir:Z' to mount volume if user running the container is the owner, or container is a root container
 ```
 
 Attaching Storage
