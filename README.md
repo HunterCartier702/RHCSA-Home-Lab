@@ -2632,7 +2632,7 @@ $ podman run alpinenmap:1.0 # runs nmap scan on localhost
 
 # podman build -t mypython:latest -f Randomfile .
 # -t mypython:latest: names the image mypython with the tag latest
-# -f Randomfile: tells podman which file to use, defaults to Containerfile or Dockerfile
+# -f Randomfile: tells podman which file to use, defaults to Containerfile or Dockerfile if omitted
 # '.': context directory (everything in . can be copied with COPY in the Containerfile)
 # Podman will look at everything inside . and allow you to COPY files from it into the container image
 ```
