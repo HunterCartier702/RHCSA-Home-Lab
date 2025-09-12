@@ -2580,7 +2580,7 @@ Running containers with Podman
 
 ```shell
 $ dnf install containter-tools # install podman and such
-$ podman info | grep registries # list availble registries 
+$ podman info | grep -A3 registries # list availble registries 
 $ podman ps -a # list running and stopped containers
 $ podman run -d nginx # start nginx container in detached mode
 $ podman ps # list running containers
@@ -2601,7 +2601,7 @@ $ podman login <registry> # to login to that registry
 $ podman search --filter is-official=true alpine # use filters
 $ podman search --filter stars=5 alpine
 
-# when you run 'podman inspect' the Cmd is the coammnd the container runs by default
+# when you run 'podman inspect' the 'Cmd:' var is the command the container runs by default
 $ podman info | grep -A10 registries
 $ podman search registry.access.redhat.com/ubi # to search only RH registry for ubi images
 $ skopeo inspect docker://registry.access.redhat.com/ubi9 | less # show info on image before pulling it down
