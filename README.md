@@ -2702,13 +2702,14 @@ $ semanage fcontext -a -t container_file_t "/hostdir(/.*)?"; restorecon # manual
 Attaching Storage
 
 ```shell
-$ sudo mkdir /opt/dbfiles; sudo chmod o+w /opt/dbfiles # create and prep dir. 'o+w' allows to work without using 'podman unshare chown'
+$ sudo mkdir /opt/dbfiles; sudo chmod o+w /opt/dbfiles # create and prep directory. 'o+w' allows directory to work without using 'podman unshare chown' command. we will get to that next, but for now this is to allow the directory to be writable 
 $ podman login registry.redhat.io
-# The following command will fail as 'root' still owns the storage directory 
+# The following command will fail as 'root' still owns /opt/dbfiles directory 
 $ podman run -d --name mydbase -v /opt/dbfiles:/var/lib/mysql:Z -e MYSQL_USER=user -e MYSQL_PASSWORD=pass -e MYSQL_DATABASE=db -p 3306:3306 rhscl/mariadb-102-rhel7
 $ podman ps -a # see failed container mydbase
-$ podman logs mydbase # nothing here as its not a container related error
+$ podman logs mydbase # nothing here as its not a container related error, but a permissions err
 $ podman rm mydbase # remove this container to try again
+
 $ sudo chown $(id -un) /opt/dbfiles # change ownership to current user
 # Now the command will work as the SELinux context was applied automatically because the user is the owner and has write permissions
 $ podman run -d --name mydbase -v /opt/dbfiles:/var/lib/mysql:Z -e MYSQL_USER=skriptkiddie -e MYSQL_PASSWORD=pass -e MYSQL_DATABASE=db -p 3306:3306 rhscl/mariadb-102-rhel7
@@ -2722,7 +2723,7 @@ $ podman run -d --name mydb -e MYSQL_ROOT_PASSWORD=password registry.access.redh
 $ podman exec mydb grep mysql /etc/passwd # verify UID of 'mysql' user is '27'
 $ podman stop mydb;podman rm mydb
 
-# how you know what path and UID to use:
+# how you know what PATH and UID to use:
 # podman inspect <IMAGE>
 "User": "27"
 "HOME=/var/lib/mysql"
