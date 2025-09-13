@@ -2784,7 +2784,7 @@ $ loginctl enable-linger myuser # enable this for user, myuser
 # when linger is enabled, systemd services that are enabled for that specific user will be started on system start, and not just when the user logs in
 
 # next you must generate a systemd unit file manually or automatically to start the containers
-$ podman generate systemd --name mycontainer --files # auto genersates unit file
+$ podman generate systemd --name mycontainer --files # auto generates unit file
 # This container file must be generated in the '~/.config/systemd/user' directory
 # So create this directory and 'cd' into it before running 'podman generate'
 
