@@ -2723,7 +2723,8 @@ $ podman run -d --name mydb -e MYSQL_ROOT_PASSWORD=password registry.access.redh
 $ podman exec mydb grep mysql /etc/passwd # verify UID of 'mysql' user is '27'
 $ podman stop mydb;podman rm mydb
 
-# how you know what PATH and UID to use:
+# how you know what 'PATH' to mount to and 'UID' to use:
+# '-v /home/$(id -un)/mydb:/var/lib/mysql:Z'
 # podman inspect <IMAGE>
 "User": "27"
 "HOME=/var/lib/mysql"
