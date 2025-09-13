@@ -2703,7 +2703,7 @@ Attaching Storage
 
 ```shell
 $ sudo mkdir /opt/dbfiles; sudo chmod o+w /opt/dbfiles # create and prep directory. 'o+w' allows directory to work without using 'podman unshare chown' command. we will get to that next, but for now this is to allow the directory to be writable
-$ ls -dZ /opt/dbfiles
+$ ls -dZ /opt/dbfiles # check directory context before change
 $ podman login registry.redhat.io
 # The following command will fail as 'root' still owns /opt/dbfiles directory 
 $ podman run -d --name mydbase -v /opt/dbfiles:/var/lib/mysql:Z -e MYSQL_USER=user -e MYSQL_PASSWORD=pass -e MYSQL_DATABASE=db -p 3306:3306 rhscl/mariadb-102-rhel7
@@ -2714,7 +2714,7 @@ $ podman rm mydbase # remove this container to try again
 $ sudo chown $(id -un) /opt/dbfiles # change ownership to current user
 # Now the command will work as the SELinux context was applied automatically because the user is the owner and has write permissions
 $ podman run -d --name mydbase -v /opt/dbfiles:/var/lib/mysql:Z -e MYSQL_USER=skriptkiddie -e MYSQL_PASSWORD=pass -e MYSQL_DATABASE=db -p 3306:3306 rhscl/mariadb-102-rhel7
-$ ls -dZ /opt/dbfiles
+$ ls -dZ /opt/dbfiles # check directory context after automatic change
 ```
 
 Bind Mounting in Rootless Containers
