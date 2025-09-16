@@ -2101,7 +2101,7 @@ chroot /sysroot
 passwd   # set a new root password
 touch /.autorelabel
 exit     # exit chroot
-reboot     # reboot
+exit     # reboot
 6. After relabeling completes, you can log in as root with your new password.
 ```
 
