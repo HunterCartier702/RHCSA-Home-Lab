@@ -17,6 +17,7 @@
   - [Configuring Logging](#logging)
   - [Managing Storage](#storage)
   - [LVM’s Managing Advanced Storage](#lvm)
+  - [Stratisd](#stratis)
   - [Basic Kernel Management](#kernel)
   - [Managing Boot Procedure](#boot)
   - [Troubleshooting](#trouble)
@@ -1863,6 +1864,7 @@ $ pvs # will now show p4 unused
 $ vgreduce vgdemo /dev/nvme0n1p4 # rem unused PV
 ```
 
+## <a name="stratis"></a>Stratisd
 Stratis
 
 ```shell
