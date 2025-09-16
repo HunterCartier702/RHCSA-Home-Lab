@@ -2494,6 +2494,8 @@ $ dnf install -y nfs-utils
 $ mkdir -p /users/anna /users/linda
 $ vim /etc/exports
 	/users *(rw,no_root_squash)
+$ chown linda:linda /users/linda
+$ chown anna:anna /users/anna
 $ systemctl enable --now nfs-server
 
 # autofs:
