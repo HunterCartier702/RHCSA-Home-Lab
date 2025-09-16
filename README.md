@@ -2486,6 +2486,28 @@ $ systemctl restart autofs
 $ cd /users/user1
 ```
 
+autofs exercise
+
+```shell
+# create a directory /users/linda & anna. Export directory with NFS server
+$ dnf install -y nfs-utils
+$ mkdir -p /users/anna /users/linda
+$ vim /etc/exports
+	/users *(rw,no_root_squash)
+$ systemctl enable --now nfs-server
+
+# autofs:
+$ useradd -m -d /home/users/linda linda
+$ useradd -m -d /home/users/anna anna
+$ vim /etc/auto.master.d/users.autofs # (creating the new file):
+	/home/users /etc/auto.users
+$ vim /etc/auto.users # Now create /etc/auto.users with mappings:
+	linda -rw localhost:/users/linda
+	anna  -rw localhost:/users/anna
+$ systemctl enable --now autofs
+# autofs mounts /users/linda to /home/users/linda so when they login, access, and write to their home, they are actually writing to /users/linda ect.
+```
+
 [Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
 
 ## <a name="time"></a>Configuring Time Services
