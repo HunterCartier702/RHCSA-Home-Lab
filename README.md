@@ -1565,7 +1565,7 @@ UUID’s and Labels
 # you can mount using device name, UUID, or label (less common).
 $ blkid # show UUID's
 $ lsblk -f # shows file system type and UUID
-$ lsblk -no UUID /dev/sdb3 # print ONLY UUID for that partition. good for scripting or brace expansion $()
+$ lsblk -no UUID /dev/sdb3 # print ONLY UUID for that partition. good for scripting or command substitution $()
 # What=/dev/disk/by-uuid/<UUID> # add UUID for *.mount unit files 
 
 # you can set labels using e2label, xfs_admin -L, mkfs.xxx -L
