@@ -2804,7 +2804,7 @@ $ ssh linda@localhost # this doesnt work from a 'su' environment
 $ mkdir -p .config/systemd/user && cd .config/systemd/user # create dir where systemd files will be created
 $ podman run -d --name mynginx -p 8081:80 nginx # create and start mynginx container
 $ podman ps # verify running
-$ podman generate systemd --name mynginx --files # generates container-mynginx.service in cwd
+$ podman generate systemd --name mynginx --files --new # generates container-mynginx.service in cwd
 $ systemctl --user daemon-reload # ensure systemd picks up changes
 $ systemctl --user enable container-mynginx.service # enable mynginx container
 $ systemctl --user status container-mynginx.service
