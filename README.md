@@ -825,7 +825,7 @@ $ top # type r, enter PID to change nice value
 
 $ nice -n 5 if=/dev/zero if=/dev/null & 
 $ ps aux | grep dd # list pid
-$ renice -n 10 -p 1234 # lower prioority by pid
+$ renice -n 10 -p 1234 # lower priority by pid
 $ top # shows dd at the top. type k to kill
 
 # making nice values persist reboots for services
