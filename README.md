@@ -2323,6 +2323,8 @@ $ setsebool -P ftpd_anon_write on # -P sets default on to persist reboots, and '
 $ semanage boolean -l | grep ftpd_anon # verify state & default on
 	SELinux Boolean		State	Default
 	ftpd_anon_write		(on   ,  on)	# default on means persist reboots
+
+$ semanage boolean -m --on ftpd_anon_write # sets state and default 'on'. similar to 'setsebool -P'
 ```
 
 SELinux Policy Violations
