@@ -2319,7 +2319,10 @@ $ getsebool -a | grep ftp
 $ setsebool ftpd_anon_write on # changes runtime value(temporarily)
 $ getsebool ftpd_anon_write
 	ftpd_anon_write --> on
-$ setsebool -P ftpd_anon_write on # sets default on always to persist reboots
+$ setsebool -P ftpd_anon_write on # -P sets default on to persist reboots, and 'on' turns current state in memory on
+$ semanage boolean -l | grep ftpd_anon # verify state & default on
+	SELinux Boolean		State	Default
+	ftpd_anon_write		(on   ,  on)	# default on means persist reboots
 ```
 
 SELinux Policy Violations
