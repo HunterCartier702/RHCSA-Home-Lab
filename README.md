@@ -826,7 +826,16 @@ $ top # type r, enter PID to change nice value
 $ nice -n 5 if=/dev/zero if=/dev/null & 
 $ ps aux | grep dd # list pid
 $ renice -n 10 -p 1234 # lower prioority by pid
-$ top # shows dd at the top. type k to kill 
+$ top # shows dd at the top. type k to kill
+
+# making nice values persist reboots for services
+$ systemctl edit httpd.service # edit service file
+	# add Service stanza and add nice value for service
+	[Service]
+	Nice=2
+$ systemctl daemon-reload
+$ systemctl restart httpd.service
+$ ps -eo command,nice | grep httpd # verify
 ```
 
 Sending Signals
