@@ -2501,9 +2501,9 @@ $ systemctl enable --now nfs-server
 # autofs:
 $ useradd -m -d /home/users/linda linda
 $ useradd -m -d /home/users/anna anna
-$ vim /etc/auto.master.d/users.autofs # (creating the new file):
-	/home/users /etc/auto.users
-$ vim /etc/auto.users # Now create /etc/auto.users with mappings:
+$ vim /etc/auto.master.d/users.autofs # (creating the new file): 
+	/home/users /etc/auto.users # /mountPoint /secondaryFile
+$ vim /etc/auto.users # Now create secondary file /etc/auto.users with mappings:
 	linda -rw localhost:/users/linda
 	anna  -rw localhost:/users/anna
 $ systemctl enable --now autofs
