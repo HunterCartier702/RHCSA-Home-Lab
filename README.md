@@ -1648,6 +1648,24 @@ What=/dev/disk/by-uuid/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 What=/dev/disk/by-label/MYDISK
 ```
 
+Creating vfat partition
+
+```shell
+$ gdisk /dev/sdb
+	n
+	+1G
+	700 # type
+	w # write and exit
+$ dnf whatprovides */mkfs.vfat
+$ dnf install -y dosfstools
+$ mkfs.vfat /dev/sdb1
+$ fatlabel /dev/sdb1 MYLABEL # name label 'MYLABEL'
+$ mkdir /mydata
+$ vim /etc/fstab
+	LABEL=MYLABEL /mydata vfat defaults 0 0
+$ mount -a
+```
+
 [Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
 
 ## <a name="lvm"></a>LVM’s Managing Advanced Storage 
