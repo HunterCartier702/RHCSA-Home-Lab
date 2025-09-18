@@ -2084,22 +2084,28 @@ Reinstalling GRUB Using a Rescue Disk
 $ grub2-install /dev/sda # for example
 ```
 
-Resetting the Root Password (Old Method) 
+Resetting the Root Password 
 
 ```shell
 # if you forget the root password you need to reset it. 
 # the only way to do that is boot into 'minimal mode', which allows you to login w/o a passwd
-1. at boot press 'e' when grub menu appears
+1. press 'e' when grub menu appears to interrupt 
 2. Enter 'init=/bin/bash' on kernel loading line. Press 'Ctrl+x' to boot
-3. Once in root shell, type 'mount -o remount,rw /' to get rw access to root /
+3. type 'mount -o remount,rw /' once in root shell, to get rw access to root /
 4. now type 'passwd' and press enter, to change root password.
 5. then type 'touch /.autorelabel' to make sure SELinux security labels are set
 6. type '/usr/sbin/reboot -f' 
 # or 'exec /usr/lib/systemd/systemd' to replace /bin/bash with systemd as PID1 
 7. reboot and verify you can login as root
+e
+init=/bin/bash
+mount -o remount,rw /
+passwd
+touch /.autorelabel
+exec /usr/lib/systemd/systemd 
 ```
 
-or  9.1+ Method
+old method
 
 ```shell
 1. Reboot the machine.
@@ -2848,6 +2854,10 @@ $ systemctl --user enable container-mynginx.service # enable mynginx container
 $ systemctl --user status container-mynginx.service
 $ reboot # to test persistance
 $ ps faux | grep -C3 mynginx # verify
+
+# I have been having an issue where /tmp/storage-run-2001/ is not deleting after reboot and podman is storing data here that interferes with running podman. Current fix:
+# add [Service] stanza to service file:
+ExecStartPre=/usr/bin/rm -rf /tmp/storage-run-%U
 ```
 
 [Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
