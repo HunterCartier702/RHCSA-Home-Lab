@@ -2662,7 +2662,7 @@ $ chronyc sources # should show new server info
 Running containers with Podman 
 
 ```shell
-$ dnf install containter-tools # install podman and such
+$ dnf install container-tools # install podman and skopeo ect.
 $ podman info | grep -A3 registries # list availble registries 
 $ podman ps -a # list running and stopped containers
 $ podman run -d nginx # start nginx container in detached mode
@@ -2692,7 +2692,7 @@ $ podman pull registry.access.redhat.com/ubi9 # pull the image
 $ podman images # list downloaded images
 $ podman inspect registry.access.redhat.com/ubi9 | less # shows more info then skopeo
 
-$ skopeo list-tags docker://docker.io/library/mysql # to list versions of a image
+$ skopeo list-tags docker://docker.io/library/mysql # to list versions of an image
 $ podman pull docker.io/library/mysql:8.0 # specify version to pull specific image
 ```
 
