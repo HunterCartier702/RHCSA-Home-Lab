@@ -2316,9 +2316,9 @@ $ curl -s localhost:80 # now SELinux allows access
 Finding the Context You Need
 
 ```shell
-# Look at the default environment 
-# Read config files
-# use 'man -k _selinux', must install 'selinux-policy-doc' package
+1. Look at the default environment 
+2. Read config files
+3. or use 'man -k _selinux', must install 'selinux-policy-doc' package
 $ dnf search selinux | grep doc
 $ dnf install selinux-policy-doc -y
 $ man -k _selinux # may need to type 'mandb' if nothing shows
@@ -2353,7 +2353,7 @@ $ ls -Z
 Managing Port Access
 
 ```shell
-# must set appropriate on non-default port or it will be denied
+# must set appropriate context on non-default port or it will be denied
 $ semanage port -a -t http_port_t -p tcp 8008 # to have apache move from 80
 # no need to run 'restorecon' after
 
