@@ -1437,6 +1437,8 @@ $ tune2fs -O # filesystems come with defaults enabled. use ^ to disable these fe
 
 $ tune2fs -L # set label on filesystem. or "volume name"
 $ tune2fs -L myLabelName /dev/nvme0n1p2
+
+$ mkfs.ext4 -L <LABEL> # honestly just use this for labeling
 ```
 
 Managing XFS File System Properties
@@ -1446,6 +1448,8 @@ Managing XFS File System Properties
 # you can change some XFS properties with xfs_admin
 $ xfs_admin -L myLabelName # set label
 $ xfs_admin -l /dev/nvme0n1p1 # print label
+
+$ mkfs.xfs -L <LABEL> # honestly just use this for labeling
 ```
 
 Adding Swap Partitions
@@ -1621,6 +1625,7 @@ $ gdisk /dev/sdb
 $ dnf whatprovides */mkfs.vfat
 $ dnf install -y dosfstools
 $ mkfs.vfat /dev/sdb1
+$ mkfs.vfat -n <LABEL> /dev/sdb1 # label and format file system
 $ fatlabel /dev/sdb1 MYLABEL # name label 'MYLABEL'
 $ mkdir /mydata
 $ vim /etc/fstab
