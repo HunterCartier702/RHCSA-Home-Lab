@@ -2507,7 +2507,8 @@ Automount
 # Defining Mounts in Automount:
 # 2 step process 
 1. Edit the master config file: /etc/auto.master
-# in the file you enter the mount point, /nfsdata & the secondary file name /etc/auto.nfsdata
+# first in the file you enter the mount point /nfsdata & then the secondary file name /etc/auto.nfsdata
+   # mount     file
 $ /nfsdata /etc/auto.nfsdata # append in master file
 # the rest of the configuration happens in the second file
 
