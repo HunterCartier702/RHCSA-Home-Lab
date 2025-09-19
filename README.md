@@ -1069,7 +1069,7 @@ $ systemctl cat logrotate.timer # also accompanies logrotate.service
 [Timer]
 OnCalendar=daily # describes when timer executes. current is daily
 AccuracySec=1h # time window within it should execute
-Persistent=true # must have OnCalendar set. takes boolean logic. it set to true, it stores the last time it was triggered on disk to trigger when needed
+Persistent=true # must have OnCalendar set. takes boolean logic. if set to true, it stores the last time it was triggered on disk to trigger when needed
 # Important options:
 OnActiveSec= # defines a timer relative to the moment the timer is activated
 OnBootSec= # defines a timer relative to when the machine was booted
@@ -1081,7 +1081,7 @@ $ systemctl list-units -t timer # list all timers
 $ systemctl list-unit-files logrotate.* # lists .service and .timer
 $ systemctl cat logrotate.service # there is no [Install] section
 $ systemctl status logrotate.service # shows 'TriggeredBy: logrotate.timer'
-$ dnf instal -y sysstat 
+$ dnf install -y sysstat 
 $ systemctl list-unit-files sysstat*.* # show unit files added from package
 $ systemctl cat sysstat-collection.timer # shows OnCalendar=*:00/10 which ensures that it will run every 10 minutes
 ```
@@ -1134,7 +1134,7 @@ Anacron
 ```shell
 # anacron starts hourly, daily, weekyly, and monthly cron jobs
 $ /etc/anacron # file that shows which jobs should be executed
-#first field=days. second filed=delay in minutes. third field=job identifier, fourth=command to run
+# first field=days. second filed=delay in minutes. third field=job identifier, fourth=command to run
 1	    5	             cron.daily	     run-parts --report /etc/cron.daily
 $ run-parts # a command that executes all executables in a dir
 $ anacron -T #will output any errors if there are any
