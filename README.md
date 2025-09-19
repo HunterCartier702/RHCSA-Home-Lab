@@ -111,7 +111,7 @@ $ ~/.bashrc # user specific subshell variables can be defined
 /etc/motd and /etc/issue
 
 ```shell
-# edit file directly and add to 'Banner <PATH>' in sshd_config:
+# edit issue file directly then edit 'Banner /etc/issue' in sshd_config:
 $ /etc/issue # used to display a message BEFORE a user logs in to a shell
 
 # edit file directly and PAM handles the rest automatically 
@@ -127,8 +127,8 @@ Man Pages
 # (8) System administration commands
 $ man 5 tar # access different sections
 $ # append --help to most commands for brief usage
-$ man ls # type /example for usage or look for See Also section
-$ # serach the mandb with 'man -k' and 'apropos' using keywords
+$ man ls # type /example for usage or look for 'See Also' section
+$ # search the mandb with 'man -k' and 'apropos' using keywords
 $ apropos partition
 $ man -f ls
 $ man -k ls
@@ -156,9 +156,10 @@ Copy Files and Directories
 
 ```shell
 $ ls -lrt # list recently modified files last 
-$ cp /somedir/.* /tmp/ # copy all hidden files
-$ cp -a /somedir/ /tmp/ # -a=archive. cp somedir and hidden and normal files to /tmp
-$ cp -a /somedir/. . # copies all files regular and hidden to current dir
+$ cp /somedir/.* /tmp/ # copy all hidden files to /tmp
+$ cp -a /somedir/* /tmp/ # -a=archive. cp normal files to /tmp
+$ cp -a /somedir/. . # copie all files regular and hidden to current dir
+$ find / -type f -user cartier -exec cp {} /cartier_files/ \; # copy all files owned by cartier to /cartier_files/ directory
 ```
 
 Using Links
@@ -177,14 +178,15 @@ Archives and Compressed Files
 ```shell
 # to archive a file you need read perms on it and execute perms on the directory the file resides in
 $ mkdir testdir && touch testdir/file{1..100} # create junk in testdir
-$ tar -cvf test-$(date +%F).tar testdir/ # archive testdir and files inside
+$ tar -cvf test-$(date +%F).tar testdir/ # archive testdir directory and files inside
 $ tar -rvf existing.tar /etc/hosts # -r=append adds a file to an existing archive
 $ tar -uvf existing.tar /home # update existing archive. write newer version of /home to archive
 $ tar -tf existing.tar # to view contents of archive
 $ file existing.tar # show what type of file
 $ tar -xvf existing.tar # x=extract archive
 $ tar -xvf existing.tar -C /tmp etc/hosts # unpack hosts file to /tmp
-$ tar -xvf existing.tar etc/hosts # extract a only single file named hosts from archive
+$ tar -cvf test4.tar.gz --directory=/home/cartier/Documents/temp . # -C=directory also. cd into temp/ and copy files in directory, not including directory itself
+$ tar -xvf existing.tar etc/hosts # extract only single file named hosts from archive
 $ tar -cjvf test.tar.bz2 ./* # -j=bzip2. bzip2/bunzip2
 $ tar -cJvf test.tar.xz ./* # -J=xz 
 $ tar -czvf test.tar.gz ./* # z=gzip gzip/gunzip
@@ -206,7 +208,7 @@ $ du -h | sort -rn # sort largest files first
 $ sort -k3 -t : /etc/passwd # sort third column w/ field-sep :
 $ ps aux | sort -k 4 -nr | less # numerically reverse sort memory usage. 
 $ ps aux | wc
-		lines  words  chars
+	lines  words  chars
     200    2267   17520
 ```
 
@@ -220,10 +222,10 @@ $ grep 'r..t' /etc/passwd # '.' is a single wildcard
 $ grep 'r[aut]t' /etc/passwd # matches a single char from the range of chars
 $ ls -R Pictures/*.png # '*' match zero or more previous chars
 $ grep 're\{2\}t' /etc/passwd # matches reed not red. If you know how many of the previous chars you want to match. 
-$ grep 'ro\{1,3\}t' /etc/passwd # matchs min 1 max 3 of previous char
+$ grep 'ro\{1,3\}t' /etc/passwd # matches min 1 max 3 of previous char
 $ grep 'ro\?t' /etc/passwd # matches zero or one of the previous char
 $ grep 'ro\+t' /etc/passwd # matches one or more of the previous char
-$ (...) # group multiple chars so that regex can appy to the group
+$ (...) # group multiple chars so that regex can apply to the group
 $ grep -v -e '^#' -e '^$' /etc/services | less # exclude blank lines and lines that start w/ #
 ```
 
@@ -245,7 +247,7 @@ Non-graphical Environments
 
 ```shell
 # Virtual terminals allow you to open 6 different terminal windows on the same console.
-# Press Alt+F1-6 to switch between consoles or use chvt.
+# Press Ctrl+ Alt + F1 through F6 to switch between consoles or use chvt. add 'fn' if on laptop
 # Ctrl+Alt+fn+F7 is the graphical console in graphical environments
 $ sudo chvt 1 # Press 1-6 to switch. 7 for graphical console if there is one
 ```
@@ -266,7 +268,7 @@ SSH and Related Utilities
 
 ```shell
 $ sudo systecmctl status sshd # check if service is running
-$ sed -i -e '25d' ~/.ssh/known_hosts # remove fingerprint if misatch from changes
+$ sed -i -e '25d' ~/.ssh/known_hosts # remove fingerprint if mismatch from changes
 $ ssh -Y user@server # connect to server and start graphical applications assuming X server is running and allowed
 $ ssh -p 2222 user@server # change port
 ```
@@ -276,7 +278,7 @@ SCP Secure Copy
 ```shell
 $ scp /etc/hosts rhelsvr01:/tmp # connect using current user acc to transfer file
 $ scp cartier@rhelsvr01:/etc/hosts . # connect as user cartier and transfer hosts file to current directory
-$ scp -r rhelsvr01:/etc/ /tmp # recursively copy subdirectory to local tmp dir
+$ scp -r rhelsvr01:/etc/ /tmp # recursively copy /etc/ directory files to local /tmp dir
 $ # -P to specify non-default port
 $ sftp cartier@rhelsvr01 # enter password and access files with interactive prompt
 	ls
@@ -304,7 +306,7 @@ sudo and visudo
 ```shell
 # 1. First field is user and % prefix is for Groups.
 # 2. ALL= means all hosts. (useful in distributed environments with shared sudoers files).
-# 3. User:Groups. Root user can run cmds as all users. tux can run cmds as root. If blank the root is implied
+# 3. User:Groups. root can run cmds as all users:groups. tux can run cmds as root. If blank the root is implied
 # 4. Commands to which the rule applies. Use absolute path and seperate by a comma. An ! mark before command name negates or forbids the user from running it
 # Dan can run all commands without being prompted for sudo passwd
 # NOEXEC prevents spawning other commands with same privs
@@ -312,10 +314,12 @@ sudo and visudo
 $ sudo visudo # to edit /etc/sudoers file
 # or add a file to /etc/sudoers.d/ for a user 
 # files in sudoers.d/ must be owned by root with 0440 perms
-#/etc/sudoers.d/jdoe
-$ which systemctl
-$ jdoe ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart apache2
-$ linda ALL=/usr/bin/useradd, /usr/bin/passwd,! /usr/bin/passwd root
+
+$ which systemctl # check full path to add in file
+$ vim /etc/sudoers.d/jdoe # create drop in file
+	jdoe ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart httpd # allows jdoe to restart httpd w/o password
+
+$ linda ALL=/usr/bin/useradd, /usr/bin/passwd,! /usr/bin/passwd root # allow linda to add users, change passwords, but not for root
 $ pkexec visudo # in case you lock root account
 ```
 
@@ -336,11 +340,14 @@ User Accounts
 
 ```shell
 # vipw=edit passwd, vipw -s=edit shadow, and vigr=edit group. Not recommended
-$ sudo useradd -m -d /home/james -c “IT Guy” -s /bin/bash -G sudo,adm,mail james #end command with username. -m=creates home dir. -d=specify dir to put home dir. -s=default shell. -g=add user to another primary group, not common. -G=adds user to secondary group
-# the /etc/skel dir contains files that are copied to the user home dir when created
+$ sudo useradd -m -d /home/james -c “IT Guy” -s /bin/bash -G sudo,adm,mail james # end command with username. -m=creates home dir. -d=specify dir to put home dir. -s=default shell. -g=add user to another primary group, not common. -G=adds user to secondary group
+# all the flags above are defaults automatically configured in /etc/default/useradd, and some in /etc/login.defs
+$ useradd james # should do all the above if useradd file is configured correctly
+$ useradd -G archusers james # do all the above but add a secondary group
+# the /etc/skel dir contains files that are copied to new users home directories when created
 # default shell for users is /bin/bash and system users is /sbin/nologin
 # use usermod or passwd -s to change this
-$ sudo useradd james -s /sbin/nologin # change shell from /bin/bash
+$ sudo useradd james -s /sbin/nologin # change shell to not allow user login
 $ usermod # use for modifying user properties execpt passwords. use passwd command
 ```
 
@@ -351,7 +358,7 @@ Configuration Files for Users
 $ /etc/default/useradd # contains the SKEL and SHELL vars
 $ /etc/login.defs 
 # Important default vars in login.defs:
-# MOTD_FILE, ENV_PATH, PASS_MAX_DAYS, PASS_MIN_DAYS, PASS_WARN_DAYS, UID_MIN, CREATE_HOME
+# ENV_PATH, PASS_MAX_DAYS, PASS_MIN_DAYS, PASS_WARN_AGE, UID_{MIN,MAX}, GID_{MIN,MAX}
 ```
 
 Managing Password Properties
@@ -361,6 +368,8 @@ Managing Password Properties
 $ sudo passwd -n 30 -w 30 -x 90 james
 $ sudo chage -E 2025-12-31 james # set expire date
 $ chage -l james # see current passwd settings
+$ date -d +180days +%F # format days like '2025-08-01' to add to expire date
+
 $ chage james # enter interactive mode
 # interactive mode options:
 Minimum Password Age [0]: 30
@@ -369,7 +378,7 @@ The minimum number of days a user must wait after changing their password before
 Maximum Password Age [99999]: 180
 The maximum number of days a password is valid before the system forces the user to change it.
 
-Last Password Change (YYYY-MM-DD) [2025-07-08]:
+Last Password Change (YYYY-MM-DD) [2025-07-08]: Press enter for default of today
 The last time the password was changed.
 
 Password Expiration Warning [7]: 14
@@ -378,7 +387,7 @@ How many days before the password expires the user gets a warning.
 Password Inactive [-1]: 3
 Number of days after a password expires before the account is disabled (i.e., login not allowed).
 
-Account Expiration Date (YYYY-MM-DD) [-1]:
+Account Expiration Date (YYYY-MM-DD) [-1]: # use 'date -d +ndays +%F' command for this
 The date the account itself expires, not just the password.
 Default: -1 means the account never expires.
 ```
@@ -399,13 +408,15 @@ Creating User Environment
 Managing Group Accounts
 
 ```shell
-/etc/group # only shows names of users who are a member of this as a secondary group
+$ cat /etc/group # only shows names of users who are a member of this as a secondary group
 $ sudo groupadd ssh_users # create a group
 $ groupmod # use to change group name or gid, but not change group members, use usermod
 $ lid -g wheel # check members of a group
 $ groupmems -g wheel -l # show secondary and primary group users
-$ groupmod -aG ssh_users linda
+$ groupmod -aG ssh_users linda # usermod -aG does same
 $ id linda
+
+$ newgrp ssh_users # The newgrp command is used to change the current group ID during a login session.
 ```
 
 [Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
