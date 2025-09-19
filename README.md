@@ -2177,7 +2177,7 @@ $ man sshd_config # show sshd_config options
 # Disable root login (if enabled)
 # Disable password login (set up key based auth)
 # Set SSH to non default port
-# Allow on specific users to login via SSH
+# Allow only specific users to login via SSH
 
 # If you do move SSH to a non-default port you need to configure SELinux for it
 $ semanage port -l # to show all labeled ports
