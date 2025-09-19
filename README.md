@@ -111,8 +111,11 @@ $ ~/.bashrc # user specific subshell variables can be defined
 /etc/motd and /etc/issue
 
 ```shell
-$ /etc/motd # use to display a message after a user logs into a shell
-$ /etc/issue # ues to display a message before a user logs in to a shell
+# edit file directly and add to 'Banner <PATH>' in sshd_config:
+$ /etc/issue # used to display a message BEFORE a user logs in to a shell
+
+# edit file directly and PAM handles the rest automatically 
+$ /etc/motd # used to display a message AFTER a user logs into a shell
 ```
 
 Man Pages
