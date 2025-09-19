@@ -2691,6 +2691,9 @@ $ skopeo inspect docker://registry.access.redhat.com/ubi9 | less # show info on 
 $ podman pull registry.access.redhat.com/ubi9 # pull the image 
 $ podman images # list downloaded images
 $ podman inspect registry.access.redhat.com/ubi9 | less # shows more info then skopeo
+
+$ skopeo list-tags docker://docker.io/library/mysql # to list versions of a image
+$ podman pull docker.io/library/mysql:8.0 # specify version to pull specific image
 ```
 
 Building Images from Containerfile
