@@ -2193,7 +2193,7 @@ $ systemctl restart sshd # reload new config
 $ systemctl status -l sshd # logging shows port 2022 now
 $ ssh localhost # will fail due to SELinux
 $ semanage port -a -t ssh_port_t -p tcp 2022 # apply correct label
-$ firewall-cmd --add-port=2022/tcp --permanent
+$ firewall-cmd --add-port=2022/tcp --permanent; firewall-cmd --reload
 $ ssh -p 2022 localhost # this will now work. firewall-cmd not needed for localhost ssh
 ```
 
