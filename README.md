@@ -6,7 +6,6 @@
   - [Basic Shell Skills](#basic)
   - [File Management Tools](#files)
   - [Managing Text Files](#awk)
-  - [Local Consoles and SSH](#consoles)
   - [Users and Groups](#sudo)
   - [Permission Management](#perms)
   - [Configuring Networking](#networking)
@@ -21,7 +20,7 @@
   - [Basic Kernel Management](#kernel)
   - [Managing Boot Procedure](#boot)
   - [Troubleshooting](#trouble)
-  - [Configuring SSH](#sshd)
+  - [SSH, Configuring SSH, and Local Consoles](#sshd)
   - [Managing Apache](#apache)
   - [Managing SELinux](#selinux)
   - [Firewalld](#firewall)
@@ -238,62 +237,6 @@ $ sed -n 5p /etc/passwd # print the 5th line in passwd file
 $ sed -i 's/old/new/g' ~/newfile.txt # replace old text w/ new
 $ sed -i -e '2d;20,25d' ~/newfile.txt # delete lines 2 and 20-25
 $ sed -i -e '2d' ~/newfile.txt # del only line 2
-```
-
-[Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
-
-## <a name="consoles"></a>Local Consoles and SSH
-Non-graphical Environments
-
-```shell
-# Virtual terminals allow you to open 6 different terminal windows on the same console.
-# Press Ctrl+ Alt + F1 through F6 to switch between consoles or use chvt. add 'fn' if on laptop
-# Ctrl+Alt+fn+F7 is the graphical console in graphical environments
-$ sudo chvt 1 # Press 1-6 to switch. 7 for graphical console if there is one
-```
-
-Reboot and Poweroff
-
-```shell
-$ sudo systemctl reboot 
-$ sudo systemctl halt
-$ sudo systemctl poweroff
-or 
-$ sudo reboot # symlinked to /bin/systemctl
-$ ls -l $(which reboot)
-$ echo b > /proc/sysrq-trigger # from root shell to reset machine. Use as last resort
-```
-
-SSH and Related Utilities
-
-```shell
-$ sudo systecmctl status sshd # check if service is running
-$ sed -i -e '25d' ~/.ssh/known_hosts # remove fingerprint if mismatch from changes
-$ ssh -Y user@server # connect to server and start graphical applications assuming X server is running and allowed
-$ ssh -p 2222 user@server # change port
-```
-
-SCP Secure Copy
-
-```shell
-$ scp /etc/hosts rhelsvr01:/tmp # connect using current user acc to transfer file
-$ scp cartier@rhelsvr01:/etc/hosts . # connect as user cartier and transfer hosts file to current directory
-$ scp -r rhelsvr01:/etc/ /tmp # recursively copy /etc/ directory files to local /tmp dir
-$ # -P to specify non-default port
-$ sftp cartier@rhelsvr01 # enter password and access files with interactive prompt
-	ls
-	pwd # show current remote dir
-	lpwd # show local current dir
-	lcd /tmp # change local dir
-	put secret_file.txt # upload a file
-	exit
-```
-
-Key-based Auth
-
-```shell
-$ ssh-keygen # generate keys and run through prompts
-$ ssh-copy-id rhelsvr01 # copy .pub key to remote server
 ```
 
 [Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
@@ -1809,7 +1752,7 @@ $ lvextend -r # extend LV & filesystem at the same time. Recommended to the alte
 # lvresize -r, same as above command
 
 $ lvextend -L +1G -r /dev/vgdata/lvdata # easiest way to resize using '-L' 
-# -l allows you to specify either the number of extents, or the absoulute or relative number of extents in the VG to be used
+# -l allows you to specify either the number of extents, or the absolute or relative number of extents in the VG to be used
 
 # resize the LV so that it will take 75% of total disk space in VG.
 # if current LV is using more than 75% of VG disk space, this command will try to reduce the LV size!
@@ -2161,7 +2104,66 @@ exit     # reboot
 
 [Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
 
-## <a name="sshd">Configuring SSH
+## <a name="sshd">SSH, Configuring SSH, and Local Consoles
+
+Non-graphical Environments
+
+```shell
+# Virtual terminals allow you to open 6 different terminal windows on the same console.
+# Press Ctrl+ Alt + F1 through F6 to switch between consoles or use chvt. add 'fn' if on laptop
+# Ctrl+Alt+fn+F7 is the graphical console in graphical environments
+$ sudo chvt 1 # Press 1-6 to switch. 7 for graphical console if there is one
+```
+
+Reboot and Poweroff
+
+```shell
+$ sudo systemctl reboot 
+$ sudo systemctl halt
+$ sudo systemctl poweroff
+or 
+$ sudo reboot # symlinked to /bin/systemctl
+$ ls -l $(which reboot)
+$ echo b > /proc/sysrq-trigger # from root shell to reset machine. Use as last resort
+```
+
+SSH and Related Utilities
+
+```shell
+$ sudo systecmctl status sshd # check if service is running
+$ sed -i -e '25d' ~/.ssh/known_hosts # remove fingerprint if mismatch from changes
+$ ssh -Y user@server # connect to server and start graphical applications assuming X server is running and allowed
+$ ssh -p 2222 user@server # change port
+```
+
+SCP Secure Copy
+
+```shell
+$ scp /etc/hosts rhelsvr01:/tmp # connect using current user acc to transfer file
+$ scp cartier@rhelsvr01:/etc/hosts . # connect as user cartier and transfer hosts file to current directory
+$ scp -r rhelsvr01:/etc/ /tmp # recursively copy /etc/ directory files to local /tmp dir
+$ # -P to specify non-default port
+$ sftp cartier@rhelsvr01 # enter password and access files with interactive prompt
+	ls
+	pwd # show current remote dir
+	lpwd # show local current dir
+	lcd /tmp # change local dir
+	put secret_file.txt # upload a file
+	exit
+```
+
+.ssh/config file
+
+```shell
+# create file to automate ssh connections
+$ man ssh_config 
+# file contents example:
+Host server01
+	HostName www.server01.local
+	User cartier
+	IdentityFile ~/.ssh/id_rsa
+```
+
 Hardening SSH
 
 ```shell
