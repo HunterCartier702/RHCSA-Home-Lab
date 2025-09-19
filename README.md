@@ -488,7 +488,7 @@ $ ll dev_ops/
 	-rw-r--r--. 1 user01 devops 0 Jul 21 13:27 go_lang_proj.txt # created file owned by that group
 
 # 1 sticky bit 
-# when applied, can delete a file only if root, owner, owner of dir where file located
+# when applied, can only delete a file only if you are root, owner, or owner of directory where file is located
 $ ls -ld /tmp
 	drwxrwxrwt. 14 root root 4096 Jul 21 13:26 /tmp
 ```
@@ -496,11 +496,11 @@ $ ls -ld /tmp
 Applying Advanced Permissions
 
 ```shell
-$ chmod 4755 somedir/ # apply SGID to a directory
+$ chmod 4755 somedir/ # apply SUID to a directory
 $ chmod u+s # SUID
 $ chmod g+s # SGID
-$ chmod +t # # sticky bit
-$ chmod g+s,o+t data/sales/
+$ chmod +t # sticky bit
+$ chmod g+s,o+t data/sales/ # add GUID & sticky bit
 
 
 Permission  On Files                   On Directories
@@ -512,7 +512,7 @@ SUID        User executes file w/      No meaning
 SGID        User executes file w/      Files created in directory get the       
             perms of group owner       same group owner
 
-Stickybit   No meaning                 Prevents users from deleting fies from 
+Stickybit   No meaning                 Prevents users from deleting files of 
                                        other users
 ```
 
@@ -531,9 +531,11 @@ Attributes
 
 ```shell
 $ man chattr
+$ man lsattr
+$ lsattr # list attributes of files in current directory
 $ chattr +s somefile # set s attribute
 $ chattr -s somefile # remove s attribute
-$ lsattr # list attributes
+$ lsattr # list attributes to verify
 ```
 
 [Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
@@ -581,8 +583,8 @@ $ systemctl status NetworkManager # verify its status
 # /etc/NetworkManager/system-connections/
 # these scripts have a name that starts with its network interface name
 device - a network interface card
-connection - configuration used on a device
-# you can create multiple connections for a device
+connection - configuration used on a device, usually the 'Name'
+# you can create multiple connections for a single device
 $ nmcli general permissions 
 ```
 
@@ -621,8 +623,8 @@ $ nmcli con mod # change current connection properties
 # while adding a con use 'ip4' but while modifying existing con use 'ipv4'
 
 # change autoconnect at reboot
-$ nmcli con mod static connection.autoconnect yes
-$ nmcli con mod dhcp connection.autoconnect no
+$ nmcli con mod static autoconnect yes
+$ nmcli con mod dhcp autoconnect no
 
 $ nmcli -f name,autoconnect,autoconnect-priority,state c s # show con name and autoconnect property. -f=fields
 $ nmcli -f <tab twice> # show possible fields
@@ -630,15 +632,14 @@ $ nmcli con add type <tab twice> # see all options
 # connection.autoconnect-priority <default 0> low priority=-999 to 999=high priority
 
 $ nmcli con mod enp0s3 ipv4.dns "8.8.8.8 1.1.1.1" # add multiple dns servers 
-$ nmcli con show enp0s3 | grep ipv4.dns: # verify dns set serversnmc
+$ nmcli con show enp0s3 | grep ipv4.dns: # verify dns set servers
 ```
 
 Change Connection Parameters with nmcli
 
 ```shell
 # while ADDING a con use 'ip4' but while MODifying existing con use 'ipv4'
-$ nmcli con mod static connection.autoconnect no # make sure connection named static does not connect automatically
-# or just 'nmcli con mod static autoconnect no'
+$ nmcli con mod static autoconnect no # make sure connection named static does not connect automatically
 $ nmcli con mod static ipv4.dns 10.0.0.10 # add/change dns server to connection
 $ nmcli con mod static +ipv4.dns 8.8.8.8 # append second item w/ same params use +
 $ nmcli con mod static ipv4.addresses 10.0.0.100/24 # change parameter of existing ip
@@ -657,6 +658,7 @@ Edit a connection # create new connections or edit existing
 Activate a connection # use to re-activate a connection
 Set system hostname # set hostname of computer
 # after editing a connection you need to deactivate and activate it again!
+
 $ nm-connection-editor # GUI
 ```
 
@@ -715,11 +717,12 @@ $ subscription-manager attach --auto # registering is not enough. use to auto at
 $ subscription-manager list --consumed # see what subscriptions currently using
 $ subscription-manager unregister # unregister if you have a limited number of systems
 $ /etc/pki/ # after registering and attaching a subscription, entitlement certificates are written here
+
 $ dnf repolist # list enabled repos
 $ dnf repolist --all # list disabled and enabled repos
 ```
 
-Specifying Repo to Use (outdated - use config-manager)
+Manually Specifying Repo to Use (outdated - use config-manager)
 
 ```shell
 # to tell your server which repo to use, create a '.repo' file in:
@@ -729,7 +732,7 @@ $ /etc/yum.repos.d/
 name= # specify the name of repo to use
 baseurl= # contains the url that points to a specific location
 # for RHCSA include 
-gpgcheck=0 # will do gpg check without option
+gpgcheck=0 # will do a gpg check without this option
  
 # Optional but commonly used:
 enabled=1: # Enables the repo (defaults to 1 if not specified).
@@ -740,8 +743,8 @@ gpgkey=: # URL or path to the GPG key if gpgcheck=1.
 Using config-manager 
 
 ```shell
-# creates repo client file for you specifying the repo using http:
-$ dnf config-manager --add-repo=http://myrepo.example.com/BaseOS
+# creates .repo client file for you. Example specifying the repo using http:
+$ dnf config-manager --add-repo=http://myrepo.example.com/BaseOS # i had to add a trailing '/' when hosting my own over http
 $ dnf config-manager --add-repo=file:///repo/BaseOS # adds the local test repo
 gpgcheck=0 # add to newly created .repo file to disable gpg checking
 $ dnf repolist # to show new repo enabled
@@ -761,6 +764,7 @@ $ dnf [install|remove] <packageName> # install or remove a package
 $ dnf list [all|installed] # list all or installed packages
 $ dnf list kernel # show current and available kernel if any
 $ dnf upgrade <packageName> # upgrade all packages or specified package
+$ dnf check-update # check for updates
 
 $ dnf group list # list package group
 $ dnf group install <groupName> # install group packages
@@ -775,10 +779,10 @@ $ man dnf.modularity
 $ dnf module list <moduleName> # list all available modules in enabled repos or list specific streams
 $ dnf module info [php|php:8.1] # see info on a stream or stream version
 $ dnf module enable php:8.3/common # dnf module enable <name>:<stream>/<profile>
-$ dnf module list php # php  8.3 [e]. e means enabled
+$ dnf module list php # php 8.3 [e]. e means enabled
 $ dnf module list --enabled 
 $ dnf module reset php
-$ dnf module list php # php  8.3 [d] # d means disabled
+$ dnf module list php # php 8.3 [d] # d means disabled
 ```
 
 RPM
@@ -789,7 +793,7 @@ $ rpm -ql openssh-server # list files included in package and configs
 $ rpm -qd openssh-server # show all documentation for a package
 $ rpm -qc openssh-server # show all config files for package
 $ rpm -qf /bin/ls # find the name of the package ls comes from
-$ sudo rpm -i ./package.rpm # install specified package but not dependencies
+$ rpm -i ./package.rpm # install specified package but not dependencies
 ```
 
 Creating a repo with a mounted ISO file in a VM
@@ -804,7 +808,7 @@ $ umount /dev/sr0 # this is where the ISO automounts to. use lsblk
 $ mkdir /repo # create mount point 
 $ lsblk -f # grab UUID
 $ vi /etc/fstab 
-	UUID=<uuid> /repo iso9660 defaults 0 0 # add to fstab for reboot persistance
+	UUID=<uuid> /repo iso9660 defaults 0 0 # add to fstab for reboot persistence
 $ mount -a # mount all in fstab. will list any errors
 $ mount | grep sr0 # check if mounted
 $ ls /repo # will list BaseOS and Appstream which are the repos
@@ -824,7 +828,7 @@ Managing Jobs
 $ & # background a job if appended to commands
 $ Ctrl+Z # Stops job temporarily
 $ Ctrl+D # Sends EOF character to job to indicate stop waiting for input
-$ Ctrl+C # Cancel cuurent interactive job
+$ Ctrl+C # Cancel current interactive job
 $ bg # background job after using Ctrl+Z
 $ fg # foreground job
 $ jobs # list job id and use fg 1 to foreground
@@ -859,7 +863,7 @@ Sending Signals
 $ man 7 signal # overview of signals
 $ SIGTERM (15) # asks to stop a process
 $ SIGKILL (9) # force a process to stop
-$ SIGHUP (1) # hang up process. proccess will reread its configuration file
+$ SIGHUP (1) # hang up process. proccess will re-read its configuration file
 $ kill <pid> # kill command sends signals to process, default SIGTERM 15
 $ kill -9 <pid> # send SIGKILL to a process
 $ kill -l # list available signals for kill
