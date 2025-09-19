@@ -1132,7 +1132,7 @@ MAILTO=root
 Anacron
 
 ```shell
-# anacron starts hourly, daily, weekyly, and monthly cron jobs
+# anacron starts hourly, daily, weekly, and monthly cron jobs
 $ /etc/anacron # file that shows which jobs should be executed
 # first field=days. second filed=delay in minutes. third field=job identifier, fourth=command to run
 1	    5	             cron.daily	     run-parts --report /etc/cron.daily
