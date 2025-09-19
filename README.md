@@ -1837,7 +1837,7 @@ Reducing Volume Groups
 # the remaining PV's have sufficient free space to allocate the extents it currently uses
 # this procedure will not work if the remaining PV's are fully used already
 # Two steps:
-1. use pvmove to move used extents from the PV that you want to remove, to any of the remaing volumes
+1. use pvmove to move used extents from the PV that you want to remove, to any of the remaining volumes
 2. use vgreduce to complete the PV removal
 
 # Remove a VG from a PV:
