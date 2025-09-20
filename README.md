@@ -2706,6 +2706,7 @@ $ podman pull docker.io/library/mysql:8.0 # specify version to pull specific ima
 # adding a tag to an image
 $ podman pull docker.io/library/redis
 $ podman tag <image> localhost/redis # tag an image w/ 'localhost/redis'. This will create a copy of that image so you can now specify containers to use that tagged image instead
+$ podman images # view new image tag
 ```
 
 Building Images from Containerfile
