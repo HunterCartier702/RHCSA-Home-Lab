@@ -2702,6 +2702,10 @@ $ podman inspect registry.access.redhat.com/ubi9 | less # shows more info then s
 
 $ skopeo list-tags docker://docker.io/library/mysql # to list versions of an image
 $ podman pull docker.io/library/mysql:8.0 # specify version to pull specific image
+
+# adding a tag to an image
+$ podman pull docker.io/library/redis
+$ podman tag <image> localhost/redis # tag an image w/ 'localhost/redis'. This will create a copy of that image so you can now specify containers to use that tagged image instead
 ```
 
 Building Images from Containerfile
