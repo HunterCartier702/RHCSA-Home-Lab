@@ -302,6 +302,15 @@ $ /etc/default/useradd # contains the SKEL and SHELL vars
 $ /etc/login.defs 
 # Important default vars in login.defs:
 # ENV_PATH, PASS_MAX_DAYS, PASS_MIN_DAYS, PASS_WARN_AGE, UID_{MIN,MAX}, GID_{MIN,MAX}
+
+# Set Minimum Password Length to 8 Characters
+$ vim /etc/security/pwquality.conf # This file is responsible for password complexity and length requirements on RHEL 9, managed by the libpwquality library.
+	# In vim: Find the line minlen or add it if missing
+	minlen = 8 # 8 is default
+# Minimum password length and complexity settings, previously in /etc/login.defs, are now handled in /etc/security/pwquality.conf
+# pwquality.conf is managed by the libpwquality library, which provides enhanced password policies. This file allows for detailed control over password complexity requirements, such as setting minimum length, number of character classes, and repeat prevention.
+
+$ chage -M 0 <username> # forces immediate password expiration, prompting users to change their password at the next login
 ```
 
 Managing Password Properties
