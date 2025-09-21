@@ -1493,12 +1493,14 @@ $ mkswap /dev/nvme0n1p3 # format the partition as swap space
 Setting up swapspace version 1, size = 10 GiB (10737414144 bytes)
 
 $ swapon /dev/nvme0n1p3 # switch on newly allocated swap space
+$ swapon -s # lists active swap partitions
 $ free -m # check swap space has increased
                total        used        free      shared  buff/cache   available
 Mem:           15623         719       14526           9         651       14904
 Swap:          18243           0       18243
 
 $ echo "/dev/nvme0n1p3 none swap defaults 0 0" >> /etc/fstab # add to fstab
+$ swapon -a # swapon enables the new swap partition without rebooting. Using -a activates all swap entries in /etc/fstab
 ```
 
 Understanding dd
