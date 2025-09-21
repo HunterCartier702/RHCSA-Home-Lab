@@ -2074,7 +2074,7 @@ Resetting the Root Password
 ```shell
 # if you forget the root password you need to reset it. 
 # the only way to do that is boot into 'minimal mode', which allows you to login w/o a passwd
-1. press 'e' when grub menu appears to interrupt 
+1. press 'e' when grub menu appears to interrupt. Remove any console= or vconsole.keymap= options to avoid conflicts.
 2. Enter 'init=/bin/bash' on kernel loading line. Press 'Ctrl+x' to boot
 3. type 'mount -o remount,rw /' once in root shell, to get rw access to root /
 4. now type 'passwd' and press enter, to change root password.
@@ -2094,7 +2094,7 @@ old method
 
 ```shell
 1. Reboot the machine.
-2. At the GRUB menu, press 'e' to edit the boot entry.
+2. At the GRUB menu, press 'e' to edit the boot entry. Remove any console= or vconsole.keymap= options to avoid conflicts.
 3. Find the line starting with linux and append 'rd.break' at the end.
 4. Press Ctrl + X to boot.
 At the 'switch_root:/' prompt type:
