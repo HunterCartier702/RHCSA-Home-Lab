@@ -797,7 +797,7 @@ $ systemctl edit httpd.service # edit service file
 	Nice=2
 $ systemctl daemon-reload
 $ systemctl restart httpd.service
-$ ps -eo command,nice | grep httpd # verify
+$ ps -eo pid,nice,cmd | grep httpd # verify
 ```
 
 Sending Signals
