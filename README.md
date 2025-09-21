@@ -1649,6 +1649,7 @@ Disk/Partition --> Physical Volume --> Volume Group --> Logical Volume
 # you can extend or reduce the file system on an LVM if the file system type allows it
 # ext4 supports growing and shrinking
 # xfs size can only be increased
+# ext4 size can only be decreased offline, meaning unmout it
 # Remember the following commands and press TAB twice to see options instead of trying to remember all commands:
 $ pv <TABx2>
 $ vg <TABx2>
