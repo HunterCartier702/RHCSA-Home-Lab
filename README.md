@@ -2547,7 +2547,7 @@ $ dnf install -y autofs
 $ showmount -e 10.0.2.6
 	/nfsdata *
 $ vim /etc/auto.master
-	/nfsdata /etc/auto.nfsdata
+	/nfsdata /etc/auto.nfsdata --timeout=60 # The timeout will automatically unmount an inactive directory after 60 seconds
 $ vim /etc/auto.nfsdata
 	files -rw 10.0.2.6:/nfsdata
 $ systemctl enable --now autofs
