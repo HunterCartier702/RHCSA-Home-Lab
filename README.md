@@ -2292,6 +2292,10 @@ $ ls -Z /var/www
 $ semanage fcontext -a -t httpd_sys_content_t "/mydir(/.*)?"
 # -a=add context type. -t=change context type. last part is regex for /mydir and anything existing below
 $ restorecon -R -v /mydir # apply policy setting to file system
+
+$ semanage fcontext -m -t httpd_sys_content_t "/var/www/html(/.*)?" # modify context types
+$ restorecon -R -v /var/www/html
+
 $ man semanage
 $ man semanage-fcontext # '/EXAMPLE' to see examples
 
