@@ -2934,6 +2934,16 @@ $ ps faux | grep -C3 mynginx # verify
 # I have been having an issue where /tmp/storage-run-2001/ is not deleting after reboot and podman is storing data here that interferes with running podman. Current fix:
 # add [Service] stanza to service file:
 ExecStartPre=/usr/bin/rm -rf /tmp/storage-run-%U
+
+
+Adapting for a System-Level (Root) Service
+
+If the task required a system-wide service running as root instead of a rootless user service, the key differences would be:
+Commands: All commands are run as the root user, so sudo is not needed. The --user flag is removed from all systemctl commands.
+Paths: User-specific home directories (~) are replaced with system-level directories.
+Path: /etc/containers/systemd/
+Data Path: A standard system location like /var/lib/redis-data.
+Lingering: The loginctl enable-linger command is omitted, as it is only required for user sessions.
 ```
 
 [Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
