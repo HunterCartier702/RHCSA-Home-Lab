@@ -2677,12 +2677,12 @@ $ podman run -d nginx # start nginx container in detached mode
 $ podman ps # list running containers
 $ podman run -it busybox # interactive, tty
 # type 'exit' to stop and exit, or 'Ctrl+P then Ctrl+Q' to leave running and exit
-$ podman attach <NAME> to reattatch
+$ podman attach <NAME> to reattatch # you will only be attached to the main running process, so if it isn't a shell and just httpd you wont get a shell
 $ podman stop <NAME> # to stop container
 $ podman rmi <NAME> # removes an image
 $ ls ~/.local/share/containers/storage # non-root container storage
 
-# connect to a running container to run commands
+# connect to a running container with a shell
 $ podman exec -it <container_name_or_id> /bin/bash
 ```
 
