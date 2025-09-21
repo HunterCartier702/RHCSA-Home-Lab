@@ -291,7 +291,9 @@ $ useradd -G archusers james # do all the above but add a secondary group
 # default shell for users is /bin/bash and system users is /sbin/nologin
 # use usermod or passwd -s to change this
 $ sudo useradd james -s /sbin/nologin # change shell to not allow user login
+
 $ usermod # use for modifying user properties execpt passwords. use passwd command
+$ useradd amr && usermod -aG admins amr # add user amr and usermod to add user to secondary group admins
 ```
 
 Configuration Files for Users
