@@ -189,6 +189,7 @@ $ tar -xvf existing.tar etc/hosts # extract only single file named hosts from ar
 $ tar -cjvf test.tar.bz2 ./* # -j=bzip2. bzip2/bunzip2
 $ tar -cJvf test.tar.xz ./* # -J=xz 
 $ tar -czvf test.tar.gz ./* # z=gzip gzip/gunzip
+$ tar -czpvf /root/local.tgz --exclude="*/.git/*" /usr/local # --exclude option prevents specific files or directories (like .git folders). -p=preserve-permissions
 ```
 
 
