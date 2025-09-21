@@ -2681,6 +2681,9 @@ $ podman attach <NAME> to reattatch
 $ podman stop <NAME> # to stop container
 $ podman rmi <NAME> # removes an image
 $ ls ~/.local/share/containers/storage # non-root container storage
+
+# connect to a running container to run commands
+$ podman exec -it <container_name_or_id> /bin/bash
 ```
 
 Finding and Inspecting Images
