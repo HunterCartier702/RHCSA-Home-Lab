@@ -2267,8 +2267,10 @@ SELinux Modes
 # SELinux is either Enabled or Disabled
 # If Enabled, it can be in Enforcing mode (fully operational) or Permissive mode (only logs)
 # Changing from Enabled or from Disabled, requires a reboot
+# If SELinux was initially disabled, first set SELINUX=permissive in the configuration file, reboot, verify, then set it to enforcing, and reboot again. This ensures SELinux is enabled correctly without system conflicts.
+$ vim /etc/selinux/config # to set the default of SELinux while booting. sym-linked to /etc/sysconfig/selinux
+	SELINUX=enforcing
 $ /var/log/audit/audit.log # SELinux logs
-$ /etc/sysconfig/selinux # to set the default of SELinux while booting
 $ selinux=0 # set as GRUB kernel boot argument to disable at boot in grub file
 $ selinux=1 # set as GRUB kernel boot argument to enable at boot in grub file
 $ enforcing=0 # set as GRUB kernel boot argument to set 'Permissive' mode in grub file
