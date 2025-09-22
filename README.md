@@ -2950,3 +2950,46 @@ Lingering: The loginctl enable-linger command is omitted, as it is only required
 
 [Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
 
+Setup Local Image Repo (Not needed for RHCSA)
+
+```shell
+# Set up a local image repository in /var/lib/registry on port 5000 using Podman.
+# Push the httpd container image to the image repository
+
+# Setting up a container repository involves installing container-tools, configuring a local image registry with Podman, and pushing the httpd container image to this local registry.
+
+$ dnf install container-tools -y
+# Set up a Local Image Repository with Podman
+# Create the /var/lib/registry directory:
+$ mkdir -p /var/lib/registry
+$ podman run --privileged -d --name registry -p 5000:5000 -v /var/lib/registry:/var/lib/registry:Z registry
+#  --privileged: Grants the container full access to the host, necessary for registry functions.
+# -d: Runs the container in detached mode.
+# --name registry: Names the container "registry."
+# -p 5000:5000: Exposes port 5000 of the container on port 5000 of the host.
+# -v /var/lib/registry:/var/lib/registry:Z: Mounts the /var/lib/registry host directory inside the container and sets its SELinux context.
+
+# Configure Podman to Recognize the Local Registry:
+# Edit the registries.conf configuration file:
+$ vim /etc/containers/registries.conf
+# Add the following configuration at the end of the file:
+[[registry]]
+location="localhost:5000"
+insecure=true
+# location="localhost:5000": Sets the local registry's address.
+# insecure=true: Allows unencrypted connections, suitable for local testing.
+
+# Push the httpd Image to the Local Registry
+# Search for the Official Apache HTTP Server Image:
+$ podman search httpd --filter=is-official
+# Explanation: --filter=is-official limits results to official images, helping you select verified sources.
+$ podman pull docker.io/library/httpd
+# Tag the Image for the Local Registry:
+$ podman tag docker.io/library/httpd localhost:5000/httpd
+# Push the httpd Image to the Local Registry:
+$ podman push localhost:5000/httpd
+# This command uploads the image to your local registry, making it available for others to pull.
+$ ls -l /var/lib/registry/docker/registry/v2/repositories/ # Verify the Image is Stored in the Local Registry
+# Images stored in the /var/lib/registry directory under docker/registry/v2/repositories/ follow Docker's image storage conventions.
+```
+
