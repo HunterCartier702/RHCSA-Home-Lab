@@ -2713,6 +2713,7 @@ Finding and Inspecting Images
 $ podman search nginx # find available images
 # to access redhat registries you'll need to login w/ red hat creds:
 $ podman login <registry> # to login to that registry
+$ podman login registry.example.com --tls-verify=false # login to local repo without https
 $ podman search --filter is-official=true alpine # use filters
 $ podman search --filter stars=5 alpine
 
