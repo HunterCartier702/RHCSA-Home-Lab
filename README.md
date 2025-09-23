@@ -745,6 +745,7 @@ baseurl=http://192.168.1.12/rhel9_repo/AppStream
  
 $ chmod 644 /etc/yum.repos.d/rehl9.repo # -rw-r--r-- Set permissions on the new repo file so it’s readable by all
 $ dnf clean all # Refresh the cache to remove old data
+$ subscription-manager clean # clean subscription-manager caches
 $ dnf repolist # List Enabled Repositories
 $ dnf update # Update Packages to Test the Repository. This command checks if the repository is working and if packages are accessible
 ```
@@ -759,7 +760,7 @@ gpgcheck=0 # add to newly created .repo file to disable gpg checking
 $ dnf repolist # to show new repo enabled
 # use http://, ftp://, or file://
 $ dnf repository-packages <repoID> list
-# use config-manager to create initial file and then edit to meet RHCSA question exam requirements
+# use config-manager to create initial file and then edit to meet RHCSA exam question requirements
 ```
 
 Using DNF
