@@ -693,7 +693,7 @@ $ nmcli con mod <original_profile> autoconnect no # disable autoconnect for prev
 $ nmcli con mod profile4 autoconnect yes # enable autoconnect if not already
 
 # Verify
-$ nmcli device status
+$ nmcli dev status
 $ ip a s enp0s4
 $ ip route
 Check DNS Configuration:
