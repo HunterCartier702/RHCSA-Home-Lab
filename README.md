@@ -718,6 +718,7 @@ gpgcheck=0 # add to newly created .repo file to disable gpg checking
 $ dnf repolist # to show new repo enabled
 # use http://, ftp://, or file://
 $ dnf repository-packages <repoID> list
+# use config-manager to create initial file and then edit to meet RHCSA question exam requirements
 ```
 
 Using DNF
