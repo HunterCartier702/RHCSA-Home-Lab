@@ -677,22 +677,35 @@ $ dnf repolist # list enabled repos
 $ dnf repolist --all # list disabled and enabled repos
 ```
 
-Manually Specifying Repo to Use (outdated - use config-manager)
+Manually Configuring a Repo 
 
 ```shell
 # to tell your server which repo to use, create a '.repo' file in:
 $ /etc/yum.repos.d/
 # at a minimum the file needs these params:
-[label] # .repo file can contain different repos. each section starting with a label that ids the specific repo
+$ vim /etc/yum.repos.d/rhel9.repo
+[REPO_ID] # .repo file can contain different repos. each section starting with a label that ids the specific repo
 name= # specify the name of repo to use
 baseurl= # contains the url that points to a specific location
-# for RHCSA include 
-gpgcheck=0 # will do a gpg check without this option
- 
-# Optional but commonly used:
 enabled=1: # Enables the repo (defaults to 1 if not specified).
-gpgcheck=1: # Enables GPG signature checking (recommended for security).
-gpgkey=: # URL or path to the GPG key if gpgcheck=1.
+gpgcheck=0 # will do a gpg check without this option
+
+[LocalRepo_BaseOS]
+name=LocalRepo_BaseOS
+enabled=1
+gpgcheck=0
+baseurl=http://192.168.1.12/rhel9_repo/BaseOS
+ 
+[LocalRepo_AppStream]
+name=LocalRepo_AppStream
+enabled=1
+gpgcheck=0
+baseurl=http://192.168.1.12/rhel9_repo/AppStream
+ 
+$ chmod 644 /etc/yum.repos.d/rehl9.repo # -rw-r--r-- Set permissions on the new repo file so it’s readable by all
+$ dnf clean all # Refresh the cache to remove old data
+$ dnf repolist # List Enabled Repositories
+$ dnf update # Update Packages to Test the Repository. This command checks if the repository is working and if packages are accessible
 ```
 
 Using config-manager 
