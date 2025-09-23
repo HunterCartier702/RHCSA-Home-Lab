@@ -659,6 +659,47 @@ $ nmcli con down enp0s3 && nmcli con up enp0s3
 $ getent hosts rhelsvr01 # get entries from Name Service Switch libraries. nsswitch
 ```
 
+Exercise: create a NetworkManager connection profile named "profile4" for the enp0s4 device with the following static settings
+
+    IPv4 Address: 192.168.1.10/24
+    IPv6 Address: fd01::103/64
+    IPv4 default gateway: 192.168.1.1
+    IPv6 default gateway: fd01::100
+    IPv4 DNS server: 1.1.1.2
+    IPv6 DNS server: fd01::111
+    DNS search domain: google.com
+
+```shell
+# add a new profile to device enp0s4
+$ nmcli con add con-name profile4 ifname enp0s4 type ethernet # create the network profile and initialize "myprofile4" for the enp0s4 interface
+$ nmcli con mod profile4 ipv4.addresses 192.168.1.10/24 # Set the IPv4 Address
+$ nmcli con mod profile4 ipv6.addresses fd01::103/64 # Set the IPv6 Address
+# Configure Manual IP Assignment for Both Protocols:
+$ nmcli con mod profile4 ipv4.method manual
+$ nmcli con mod profile4 ipv6.method manual
+# Set Default Gateways:
+$ nmcli con mod profile4 ipv4.gateway 192.168.1.1
+$ nmcli con mod profile4 ipv6.gateway fd01::100
+# Configure DNS Servers:
+$ nmcli con mod profile4 ipv4.dns "8.8.8.8"
+$ nmcli con mod profile4 ipv6.dns "fd01::111"
+# DNS Search Domain:
+$ nmcli con mod profile4 ipv4.dns-search google.com
+$ nmcli con mod profile4 ipv6.dns-search google.com
+# Activate the Profile:
+$ nmcli con up profile4
+$ nmcli -f name,state,autoconnect con show # -f=fields. old profile for enp0s4 will be yes if there was one. turn autoconnect off for old profile
+$ nmcli con mod <original_profile> autoconnect no # disable autoconnect for previous profile
+$ nmcli con mod profile4 autoconnect yes # enable autoconnect if not already
+
+# Verify
+$ nmcli device status
+$ ip a s enp0s4
+$ ip route
+Check DNS Configuration:
+$ cat /etc/resolv.conf
+```
+
 [Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
 
 ## <a name="dnf"></a>Managing Software
