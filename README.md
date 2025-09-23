@@ -1308,6 +1308,9 @@ $ chown root:systemd-journal /var/log/journal
 $ chmod 2755 /var/log/journal
 $ systemctl restart systemd-journal-flush # to reload new params
 # systemd journal now persists
+# rwx for root so it can create/manage logs.
+# r-s for group systemd-journal: the setgid bit ensures that all files created inside inherit the systemd-journal group.
+# r-x for others so they can see the directory exists (but not read log contents, since the log files themselves are restricted).
 ```
 
 rsyslogd
