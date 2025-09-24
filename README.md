@@ -1302,8 +1302,12 @@ $ journalctl _PID=1 --since 09:00:00 -until 15:00:00 # view PID1 logs from 9am t
 Making Journal Persist
 
 ```shell
-# journal is stored in /run/log. the /run dir is used for current procs only and is cleared a reboot
-$ /etc/systemd/journald.conf # journald conf file 
+Automatic way (Config change)
+$ vim /etc/systemd/journald.conf # journald will ensure persistence without you having to manage the directory manually.
+	Storage=persistent
+
+Manual way
+# journal is stored in /run/log. the /run dir is used for current procs only and is cleared after reboot
 $ mkdir /var/log/journal # to make a dir for journal to persist after reboots
 $ chown root:systemd-journal /var/log/journal 
 $ chmod 2755 /var/log/journal
