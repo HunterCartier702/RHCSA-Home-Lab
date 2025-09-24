@@ -161,6 +161,55 @@ $ cp -a /somedir/. . # copie all files regular and hidden to current dir
 $ find / -type f -user cartier -exec cp {} /cartier_files/ \; # copy all files owned by cartier to /cartier_files/ directory
 ```
 
+examples using 'find'
+
+```shell
+# 1. Find all files named "user" under /usr and copy them to /backup
+find /usr -type f -name user -exec cp {} /backup/ \;
+
+# 2. Find all files larger than 2M and copy them to /backup
+find / -type f -size +2M -exec cp {} /backup/ \;
+
+# 3. Find files exactly 2M in size and list them
+find / -type f -size 2M -ls
+
+# 4. Find files smaller than 1M created (modified) in the last 30 days
+find / -type f -size -1M -mtime -30
+
+# 5. Find files owned by user 'student' and copy them to /home/student/files
+find / -type f -user student -exec cp {} /home/student/files/ \;
+
+# 6. Find all empty files in /var/log and delete them
+find /var/log -type f -empty -exec rm -f {} \;
+
+# 7. Find all empty directories under /tmp and remove them
+find /tmp -type d -empty -delete
+
+# 8. Find files with 777 permissions and change them to 644
+find / -type f -perm 0777 -exec chmod 644 {} \;
+
+# 9. Find files modified in the last 7 days and display details
+find / -type f -mtime -7 -exec ls -lh {} \;
+
+# 10. Find files accessed more than 90 days ago and archive them
+find /home -type f -atime +90 -exec tar -rvf oldfiles.tar {} \;
+
+# 11. Find all symbolic links in /etc
+find /etc -type l
+
+# 12. Find files with .conf extension under /etc and copy to /root/confbackup
+find /etc -type f -name "*.conf" -exec cp {} /root/confbackup/ \;
+
+# 13. Find files modified between 10 and 30 days ago
+find / -type f -mtime +10 -mtime -30
+
+# 14. Find files belonging to group 'admins' and list them
+find / -type f -group admins -ls
+
+# 15. Find files in /var larger than 100M and show only their names
+find /var -type f -size +100M -printf "%p\n"
+```
+
 Using Links
 
 ```shell
