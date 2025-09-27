@@ -531,6 +531,17 @@ Two ways to edit change defualt umask. useradd uses /etc/login.defs
 2. edit .profile or .bashrc file for each specific user account
 ```
 
+ACL's
+
+```shell
+getfacl # get acl's
+setfacl # set acl's
+$ getfacl /var/tmp/file1
+$ setfacl -m u:tom:r-x /var/tmp/file1 # give tom read and execute perms on file1. -m=modify
+$ setfacl -d -m g:group100:rwx /shared/ # -d=default ACL (applies to new files/dirs created inside /shared directory)
+$ setfacl -m u:tom:--- /file1.txt # block tom from any permissions over file1 even if 'other' has full permissions
+```
+
 Attributes
 
 ```shell
