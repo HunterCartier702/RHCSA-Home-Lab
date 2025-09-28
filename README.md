@@ -1996,6 +1996,26 @@ $ pvs # will now show p4 unused
 $ vgreduce vgdemo /dev/nvme0n1p4 # rem unused PV
 ```
 
+Understanding Extent Sizes
+
+```shell
+Size in relation to MiB and GiB
+1 extent = 4 MiB (default)
+256 extents = 1 GiB
+1024 extents = 4 GiB
+8192 extents = 32 GiB
+Total size (in MiB) = Number of extents × Extent size
+
+# create a logical volume called lv1 of size equal to 10 LEs in vg1 volume group (create vg1 with PE size 8MB in a partition on the secondary disk)
+$ vgcreate vg1 -s 8M /dev/sdb1
+$ lvcreate -n lv1 -l 10 vg1 # logical_volume_size = 8 * 10: 80MiB
+# add 64MiB to lv1
+# 64 / 8 = 8
+$ lvextend -r -l +8 /dev/vg1/lv1 # add 8 extents (64MiB)
+# or
+$ lvextend -r -L +64M /dev/vg1/lv1 # add 64MiB (8 extents) 
+```
+
 ## <a name="stratis"></a>Stratisd
 Stratis
 
