@@ -2848,6 +2848,9 @@ $ ls ~/.local/share/containers/storage # non-root container storage
 
 # connect to a running container with a shell
 $ podman exec -it <container_name_or_id> /bin/bash
+
+# good site for commands and examples: https://devtodevops.com/blog/podman-keep-container-running/
+$ podman run -d --name myubi8 ubi8:latest sleep infinity # (sleep infinity keeps it running, since ubi8 is just a base image and will stop right away.)
 ```
 
 Finding and Inspecting Images
