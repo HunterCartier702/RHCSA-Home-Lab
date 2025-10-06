@@ -2739,7 +2739,7 @@ $ vim /etc/auto.master.d/users.autofs # (creating the new file):
 $ vim /etc/auto.users # Now create secondary file /etc/auto.users with mappings:
 	* -rw nfsserver:/home/&
 $ systemctl enable --now autofs
-$ su - linda # you will atuomatically drop into /home/users/linda where the linda directory is from the nfsserver
+$ su - linda # you will automatically drop into /home/users/linda where the linda directory is automounted from the nfsserver
 ```
 
 [Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
