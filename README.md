@@ -420,6 +420,9 @@ $ groupmems -g wheel -l # show secondary and primary group users
 $ groupmod -aG ssh_users linda # usermod -aG does same
 $ id linda
 
+$ gpasswd -d user01 sharegroup # del user01 from sharegroup
+$ userdel -r user01 # del user01 and home directory
+
 $ newgrp ssh_users # The newgrp command is used to change the current group ID during a login session.
 ```
 
@@ -2718,25 +2721,25 @@ $ cd /users/user1
 autofs exercise
 
 ```shell
-# create a directory /users/linda & anna. Export directory with NFS server
+# Server:
 $ dnf install -y nfs-utils
-$ mkdir -p /users/anna /users/linda
+$ useradd -u 1200 linda
+$ useradd -u 1201 anna
 $ vim /etc/exports
-	/users *(rw,no_root_squash)
-$ chown linda:linda /users/linda
-$ chown anna:anna /users/anna
+	/home *(rw,no_root_squash)
 $ systemctl enable --now nfs-server
 
-# autofs:
-$ useradd -m -d /home/users/linda linda
-$ useradd -m -d /home/users/anna anna
+# autofs client:
+$ dnf install -y autofs
+$ mkdir -p /home/users
+$ useradd -M -b /home/users/ -u 1200 linda
+$ useradd -M -b /home/users/ -u 1201 anna
 $ vim /etc/auto.master.d/users.autofs # (creating the new file): 
 	/home/users /etc/auto.users # /mountPoint /secondaryFile
 $ vim /etc/auto.users # Now create secondary file /etc/auto.users with mappings:
-	linda -rw localhost:/users/linda
-	anna  -rw localhost:/users/anna
+	* -rw nfsserver:/home/&
 $ systemctl enable --now autofs
-# autofs mounts /users/linda to /home/users/linda so when they login, access, and write to their home, they are actually writing to /users/linda ect.
+$ su - linda # you will atuomatically drop into /home/users/linda where the linda directory is from the nfsserver
 ```
 
 [Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
@@ -2858,7 +2861,7 @@ Finding and Inspecting Images
 ```shell
 $ podman search nginx # find available images
 # to access redhat registries you'll need to login w/ red hat creds:
-$ podman login <registry> # to login to that registry
+# podman login <registry> # to login to that registry
 $ podman login registry.example.com --tls-verify=false # login to local repo without https
 $ podman search --filter is-official=true alpine # use filters
 $ podman search --filter stars=5 alpine
@@ -2906,6 +2909,11 @@ $ podman build -t mypython:latest -f Randomfile .
 # -f Randomfile: tells podman which file to use, defaults to Containerfile or Dockerfile if omitted
 # '.': context directory (everything in . can be copied with COPY in the Containerfile)
 # Podman will look at everything inside . and allow you to COPY files from it into the container image
+
+$ podman login http://rhcsa.example.com --tls-verify=false # login to local registry
+$ mkdir container && cd container
+$ podman build -t tagofcontainer -f http://rhcsa.example.com/container/Containerfile . # pull and build image from local repo
+$ podman run --name nameofcontainer localhost/tagofcontainer # create and run container
 ```
 
 Managing Containers
