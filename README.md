@@ -2446,7 +2446,7 @@ Setting Context Types
 
 ```shell
 $ semanage # writes new context to the policy, which is applied to the filesystem
-$ dnf whatprovides */semanage # find package containg semanage if not installed
+$ dnf whatprovides */semanage # find package containing semanage if not installed
 # to set context using semanage, you need to find the appropriate context
 # easiest way is to look at a default of existing context
 $ ls -Z /var/www
