@@ -2622,32 +2622,33 @@ $ firewall-cmd --add-port 80/tcp --zone=public --permanent # this could also wor
 
 [Back to Top](https://github.com/HunterCartier702/RHCSA-Home-Lab/blob/main/README.md#intro)
 
-## <a name="nfs"></a>Accessing Network Storage
+## <a name="nfs"></a>Accessing Network Storage (NFS,Autofs)
 Setting Up NFS Share (not req. for RHCSA)
 
 ```shell
-# Server1:
+# Server:
 1. Create local directory to share
 2. Edit /etc/exports file to define share
 3. Start nfs-server.service
 4. Configure firewall for incoming traffic
+# Using user: test UID: 1000
 
 $ mkdir -p /nfsdata /users/user1 /users/user2 # create shared dirs. copy some random data into them
 $ vim /etc/exports 
-	/nfsdata *(rw,no_root_squash)
-	/users *(rw,no_root_squash)
+	/nfsdata 10.0.2.0/24(rw)
+	/users 10.0.2.0/24(rw)
 $ dnf install nfs-utils -y
 $ systemctl enable --now nfs-server.service
-$ firewall-cmd --add-service=nfs # add services to firewall
-$ firewall-cmd --add-service=rpc-bind
-$ firewall-cmd --add-service=mountd
+$ firewall-cmd --add-service={nfs,rpc-bind} # must be open for NFS server to perform properly
+$ firewall-cmd --add-service=mountd # must be open for "showmount" command to query exports
 $ firewall-cmd --runtime-to-permanent # write to disk
+$ exportfs -arv # export exports now
 ```
 
 Mounting NFS Shares
 
 ```shell
-# Server2:
+# Client:
 $ dnf install -y nfs-utils # contains 'showmount' utility
 $ showmount -e <ip|hostname> # will list correctly if firewall configured w/ rpc-bing and mountd
 $ showmount -e 10.0.2.6 # it lists /nfsdata & /users shares
