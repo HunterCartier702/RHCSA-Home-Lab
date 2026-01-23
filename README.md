@@ -24,7 +24,7 @@
   - [Managing Apache](#apache)
   - [Managing SELinux](#selinux)
   - [Firewalld](#firewall)
-  - [Accessing Network Storage](#nfs)
+  - [Accessing Network Storage NFS, Autofs](#nfs)
   - [Configuring Time Services](#time)
   - [Managing Containers](#containers)
 
