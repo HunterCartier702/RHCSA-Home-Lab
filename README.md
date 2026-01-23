@@ -868,6 +868,8 @@ $ rpm -qd openssh-server # show all documentation for a package
 $ rpm -qc openssh-server # show all config files for package
 $ rpm -qf /bin/ls # find the name of the package ls comes from
 $ rpm -i ./package.rpm # install specified package but not dependencies
+$ rpm -qi nfs-utils # view info on package. same as "dnf info"
+$ rpm -ql nfs-utils | grep bin # view commands/tools included
 ```
 
 Creating a repo with a mounted ISO file in a VM
