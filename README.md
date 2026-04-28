@@ -1210,6 +1210,7 @@ OnStartupSec= # specifies a time relative to when the service manager was starte
 OnCalender= # defines timers on calender event expressions like 'daily'. see 'man systemd.time'
 $ man systemd.time
 
+$ systemd-analyze calendar "*-*-01 05:00:00" # shows you the next few run times so you can confirm it’s behaving exactly how you expect
 $ systemctl list-units -t timer # list all timers
 $ systemctl list-unit-files logrotate.* # lists .service and .timer
 $ systemctl cat logrotate.service # there is no [Install] section
