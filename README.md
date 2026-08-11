@@ -894,7 +894,7 @@ $ ls /repo # will list BaseOS and Appstream which are the repos
 $ dnf config-manager --add-repo="file:///repo/BaseOS" # create .repo file
 $ dnf config-manager --add-repo="file:///repo/AppStream"
 $ dnf repolist # list repos. There were none prior
-# go into the new .repo files and add this:
+# cd into /etc/yum.repos.d/ to edit the new .repo files and append:
 $ gpgcheck=0 # this is how rhcsa wants it
 # Now you can install some packages
 ```
