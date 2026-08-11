@@ -880,9 +880,12 @@ Creating a repo with a mounted ISO file in a VM
 2. Under the IDE or SATA controller, click the empty disk icon.
 3. Click the CD icon on the right → Choose a disk file → select your ISO (e.g., rhel-9.iso).
 4. Start the VM.
-$ umount /dev/sr0 # this is where the ISO automounts to. use lsblk
+$ lsblk -f /dev/sr0 # this is where the ISO automounts to. use lsblk to view block devices
 $ mkdir /repo # create mount point 
-$ lsblk -f # grab UUID
+$ echo "UUID=$(lsblk -no UUID /dev/sr0) /repo iso9660 defaults 0 0" | sudo tee -a /etc/fstab # grab UUID and append to fstab file
+$ findmnt --verify # will show any errors
+$ mount -a # mount all in fstab
+# or use vi and manually type:
 $ vi /etc/fstab 
 	UUID=<uuid> /repo iso9660 defaults 0 0 # add to fstab for reboot persistence
 $ mount -a # mount all in fstab. will list any errors
