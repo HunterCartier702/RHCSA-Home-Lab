@@ -894,7 +894,8 @@ $ ls /repo # will list BaseOS and Appstream which are the repos
 $ dnf config-manager --add-repo="file:///repo/BaseOS" # create .repo file
 $ dnf config-manager --add-repo="file:///repo/AppStream"
 $ dnf repolist # list repos. There were none prior
-$ gpgcheck=0 # go into the new .repo files and add this
+# go into the new .repo files and add this:
+$ gpgcheck=0 # this is how rhcsa wants it
 # Now you can install some packages
 ```
 
